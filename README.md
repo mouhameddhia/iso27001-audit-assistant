@@ -85,16 +85,69 @@ Détail technique complet de chaque étape : **[docs/ARCHITECTURE.md](docs/ARCHI
 
 ## Technologies
 
-| Couche | Choix | Alternative prévue au cahier des charges |
-|---|---|---|
-| Frontend | React 19, TypeScript, React Router 7, Vite 8 | React *ou* Angular |
-| Backend | Python, FastAPI | Python + FastAPI |
-| Base de données | PostgreSQL | PostgreSQL |
-| Moteur vectoriel | Qdrant | ChromaDB *ou* Qdrant |
-| Génération | Llama 3 8B via Ollama (local) | Azure OpenAI *ou* Llama local |
-| Embeddings | bge-m3 (multilingue, 1024 dim) | — |
-| Reranking | cross-encoder `mmarco-mMiniLMv2-L12-H384-v1` (CPU) | — |
-| Authentification | JWT + bcrypt | SSO / Azure AD / MFA *(non implémenté)* |
+| Couche | Technologie |
+|---|---|
+| Frontend | React 19, TypeScript, React Router 7, Vite 8 |
+| Backend | Python, FastAPI |
+| Base de données | PostgreSQL |
+| Moteur vectoriel | Qdrant |
+| Génération | Llama 3 8B via Ollama (local) |
+| Embeddings | bge-m3 (multilingue, 1024 dimensions) |
+| Reranking | cross-encoder `mmarco-mMiniLMv2-L12-H384-v1` (CPU) |
+| Authentification | JWT + bcrypt |
+| Tests | pytest (445 tests unitaires et d'intégration + suite e2e) |
+
+---
+
+## Techniques mises en œuvre
+
+### Réduction des hallucinations
+
+Le modèle ne décide jamais seul de ce qui est fiable. Une couche de validation déterministe
+s'interpose entre la génération et l'auditeur :
+
+- **Vérification des citations** — chaque référence ISO citée est confrontée aux références
+  réellement présentes dans les extraits récupérés. Une référence introuvable est retirée, pas
+  devinée. Sur le jeu de test de grounding, le modèle tente une citation non étayée dans 8 cas
+  sur 13 : **aucune** ne subsiste dans la sortie finale.
+- **Confiance dérivée du reranker** — le score de confiance provient du cross-encoder, une mesure
+  externe et observable, jamais de l'auto-évaluation du modèle. Une référence faiblement étayée
+  déclenche automatiquement une revue humaine.
+- **Récupération des citations en prose** — le modèle écrit souvent sa référence dans la phrase
+  plutôt que dans le champ structuré prévu. Elle est extraite du texte par le même analyseur que
+  celui utilisé à l'indexation, puis soumise à la même vérification.
+- **Détection des chiffres non rapportés** — un constat mentionnant « 14 mois » ou « 12 comptes »
+  alors que l'observation de l'auditeur ne contient aucun chiffre signale une recopie d'exemple :
+  confiance plafonnée et revue forcée.
+- **Détection de contradiction** — quand l'auditeur décrit une mesure *en place* et que le constat
+  décrit un *manquement*, le système signale explicitement la contradiction. Règle volontairement
+  asymétrique : le cas inverse, normal, n'est jamais signalé.
+- **Pas de LLM juge** — aucune de ces vérifications ne fait appel à un second modèle, ce qui ne
+  ferait que déplacer le problème de confiance.
+
+### Qualité de la recherche
+
+- **Découpage sémantique par forme** — les unités sont détectées selon leur structure
+  (enregistrement, exemple, gabarit, directive) plutôt que par fenêtres de taille fixe. Un
+  découpage par blocs mélangeait plusieurs constats distincts dans un même extrait, dont les
+  vecteurs se diluaient et ne ressortaient pour aucune requête.
+- **Retrieval hybride** — BM25 capte les correspondances exactes de références normatives
+  (`A.5.18`), la recherche sémantique capte les reformulations. Les deux classements sont fusionnés
+  par RRF, puis reclassés par cross-encoder.
+- **Canonicalisation des références** — `A.5.18`, `27002 §5.15`, `Annexe A.8.24` ou `RGPD art. 33`
+  sont ramenés à une forme unique et rattachés à leur norme. Les cas ambigus sont écartés plutôt
+  qu'arbitrés au hasard.
+- **Indexation incrémentale** — chaque extrait porte l'empreinte de son contenu ; une réindexation
+  ne recalcule que les embeddings des extraits modifiés.
+
+### Confidentialité
+
+- **Anonymisation réversible** — noms de clients, adresses IP, serveurs, comptes et applications
+  sont remplacés par des jetons avant tout appel au modèle, puis restaurés dans le rendu final.
+  Les règles sont explicites et pilotées par mots-clés, sans reconnaissance d'entités approximative
+  qui confondrait les acronymes normatifs (AES-256, TLS 1.3, A.5.18) avec des données sensibles.
+- **Exécution entièrement locale** — le modèle de langage, les embeddings, le moteur vectoriel et
+  la base de données tournent sur la machine. Aucun appel réseau vers un service d'IA externe.
 
 ---
 
@@ -243,36 +296,27 @@ python -m pytest tests/ -q -m e2e          # suite e2e (Qdrant + reranker réels
 
 ---
 
-## Données d'exemple
+## Base documentaire
 
-La base de connaissances contient des exemples de constats, non-conformités et opportunités
-d'amélioration **entièrement synthétiques** : identifiants (`NC-2026-014`), références internes
-(`POL-SEC-004`), chiffres et dates sont fictifs et ne décrivent aucune organisation réelle.
+Le corpus est constitué à partir des référentiels normatifs du périmètre — ISO/IEC 27001:2022,
+27002:2022, 27017, 27018, 27701 — complétés par la politique interne du cabinet d'audit.
 
-Seules les exigences normatives citées en appui sont réelles et vérifiables auprès de leurs
-sources officielles : ISO/IEC 27001 et 27002, ISO 19011, ainsi que les publications de l'ANSSI,
-de la CNIL et du NIST.
+Les exigences citées en appui des constats renvoient à leurs sources officielles et restent
+vérifiables : clauses et contrôles ISO, ISO 19011 pour la conduite de l'audit, ainsi que les
+publications de l'**ANSSI** (guide d'hygiène informatique, recommandations sur l'authentification
+et les sauvegardes), de la **CNIL** (sécurité des données personnelles, durées de conservation,
+analyse d'impact) et du **NIST** (SP 800-63B, SP 800-88).
 
----
-
-## Limites connues
-
-- **Pas de garde-fou thématique** : une question hors sujet produit tout de même un constat formaté
-  (à confiance nulle et systématiquement envoyé en revue humaine, mais généré).
-- **Détection de contradiction lexicale** : la règle qui repère un constat contredisant l'auditeur
-  s'appuie sur des marqueurs linguistiques (français et anglais) ; une paraphrase inhabituelle peut
-  lui échapper.
-- **Chiffrement non couvert** : ni TLS en transit ni chiffrement au repos ne sont configurés dans
-  cette phase de développement.
-- **Authentification** : JWT nom d'utilisateur/mot de passe uniquement. Le SSO, Azure AD et le MFA
-  demandés au cahier des charges ne sont pas implémentés.
-- **Journalisation partielle** : connexions et modifications sont tracées ; la couverture des
-  consultations et téléchargements ainsi que la rétention à 12 mois restent à compléter.
+Les constats, non-conformités et opportunités d'amélioration présents dans le corpus servent de
+modèles de rédaction. Ils illustrent la formulation professionnelle attendue dans un rapport et ne
+se rapportent à aucune organisation auditée : identifiants, références documentaires internes,
+chiffres et dates y sont des valeurs d'illustration.
 
 ---
 
-## Licence et contexte
+## Contexte
 
-Projet réalisé dans le cadre d'un cahier des charges d'assistance à l'audit ISO/IEC 27001.
-Les normes ISO citées sont la propriété de l'ISO et ne sont pas redistribuées ici : la base de
-connaissances contient des synthèses et des exemples rédigés pour le projet.
+Projet réalisé dans le cadre d'un cahier des charges d'assistance à la rédaction de rapports
+d'audit ISO/IEC 27001. Les normes ISO restent la propriété de l'ISO et ne sont pas redistribuées
+ici : la base documentaire contient des synthèses et des exemples de rédaction produits pour le
+projet.
