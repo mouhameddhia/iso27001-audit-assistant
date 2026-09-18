@@ -1,0 +1,330 @@
+================================================================================
+DOCUMENT: Politique interne du cabinet d'audit - Méthodologie d'audit,
+éthique, indépendance et contrôle qualité applicables aux missions d'audit
+ISO/IEC 27001 et normes associées
+================================================================================
+ID:             doc-politique-interne-cabinet
+Category:       politique_interne / Politique interne
+Language:       fr
+================================================================================
+
+
+================================================================================
+  SECTION 01 : INFORMATIONS GÉNÉRALES
+================================================================================
+
+La présente politique interne définit le cadre méthodologique, éthique et
+qualité applicable à l'ensemble des missions d'audit menées par le
+cabinet dans le domaine de la sécurité de l'information, incluant
+notamment les audits internes et de préparation à la certification
+ISO/IEC 27001:2022, les audits combinés intégrant ISO/IEC 27701, ISO/IEC
+27017 et ISO/IEC 27018, ainsi que les missions de conseil en mise en
+conformité ne relevant pas d'un audit de certification (afin d'éviter tout
+conflit d'intérêt entre activités de conseil et activités d'audit sur un
+même client).
+
+Cette politique s'inscrit dans le cadre des principes généraux d'audit
+définis par ISO 19011 (Lignes directrices pour l'audit des systèmes de
+management) et, le cas échéant, des exigences spécifiques imposées aux
+organismes de certification par ISO/IEC 27006, lorsque le cabinet
+intervient en tant qu'organisme de certification accrédité ou en tant que
+sous-traitant technique d'un tel organisme.
+
+Elle est révisée annuellement par le responsable qualité du cabinet et
+approuvée par la direction, et doit être communiquée à l'ensemble des
+auditeurs internes et externes (freelances, partenaires) intervenant pour
+le compte du cabinet préalablement à toute mission.
+
+
+================================================================================
+  SECTION 02 : PORTÉE
+================================================================================
+
+La présente politique s'applique :
+  - à l'ensemble des collaborateurs du cabinet intervenant en tant
+    qu'auditeurs, qu'ils soient salariés, freelances ou mis à disposition
+    par un partenaire ;
+  - à toutes les missions d'audit portant sur les référentiels ISO/IEC
+    27001, 27002, 27701, 27017, 27018, ainsi que sur tout référentiel
+    complémentaire explicitement demandé par le client (RGPD, NIS2, DORA) ;
+  - aux missions d'audit interne réalisées pour le compte d'un client
+    dans le cadre de son obligation de Clause 9.2, et aux missions
+    d'audit à blanc (pré-certification) réalisées avant un audit de
+    certification par un organisme tiers.
+
+Ne sont pas couvertes par la présente politique les missions de conseil
+en mise en œuvre technique de contrôles (par exemple l'implémentation
+d'un outil SIEM), qui relèvent d'une politique de délivrabilité de conseil
+distincte, notamment pour préserver l'indépendance requise en cas de
+mission d'audit ultérieure sur le même périmètre.
+
+
+================================================================================
+  SECTION 03 : ÉQUIPE D'AUDIT
+================================================================================
+
+Composition et qualification requises :
+
+  - Toute mission est placée sous la responsabilité d'un Auditeur
+    Principal (Lead Auditor), titulaire a minima d'une certification
+    ISO/IEC 27001 Lead Auditor délivrée par un organisme reconnu, et
+    disposant d'au moins trois missions d'audit complètes réalisées sous
+    supervision avant d'intervenir en autonomie.
+  - Les missions couvrant ISO/IEC 27701 requièrent la participation d'un
+    auditeur disposant d'une qualification ou d'une expérience
+    professionnelle documentée en protection des données à caractère
+    personnel (DPO certifié, juriste spécialisé, ou équivalent).
+  - Les missions couvrant ISO/IEC 27017/27018 ou un périmètre cloud
+    significatif requièrent la participation d'un auditeur technique
+    disposant d'une expérience documentée en architecture cloud
+    (certifications type AWS/Azure/GCP Security, ou expérience
+    professionnelle équivalente de 3 ans minimum).
+
+Règles d'indépendance :
+  - Un auditeur ne peut intervenir sur une mission d'audit concernant un
+    client pour lequel il a fourni une prestation de conseil dans les 24
+    mois précédents sur le périmètre audité (règle de "cooling-off").
+  - Un auditeur ne peut auditer un processus ou un système qu'il a
+    lui-même conçu, implémenté ou dont il est un utilisateur régulier
+    dans le cadre d'une autre mission en cours.
+  - Toute relation personnelle ou financière avec le client audité doit
+    être déclarée au responsable qualité avant l'acceptation de la
+    mission ; le cabinet maintient un registre des déclarations
+    d'indépendance signées par chaque auditeur pour chaque mission.
+
+Chaque équipe de mission comprend a minima un Auditeur Principal, et,
+selon le périmètre, un ou plusieurs auditeurs techniques spécialisés. Une
+revue croisée par un second Auditeur Principal non impliqué dans la
+mission est obligatoire avant l'émission du rapport final pour toute
+mission incluant une recommandation de certification.
+
+
+================================================================================
+  SECTION 04 : CONSTATS
+================================================================================
+
+Méthodologie interne de rédaction d'un constat :
+
+Chaque constat rédigé par un auditeur du cabinet doit impérativement
+comporter les cinq éléments suivants, dans cet ordre, avant validation par
+l'Auditeur Principal :
+  1. Référence précise (clause de la norme ou identifiant de contrôle
+     Annexe A, ou référence à un document de politique interne du client).
+  2. Description factuelle et neutre de la situation observée, sans
+     interprétation ni jugement de valeur ("le système X ne dispose pas
+     de..." plutôt que "l'équipe n'a pas fait attention à...").
+  3. Preuve(s) collectée(s) : document, capture d'écran, export système,
+     référence d'entretien (nom du rôle, pas nécessairement de la
+     personne, sauf accord explicite).
+  4. Écart identifié par rapport à l'exigence (norme et/ou politique
+     interne du client).
+  5. Statut proposé : Constat simple / Observation / Non-conformité
+     mineure / Non-conformité majeure (validé collégialement en réunion
+     de clôture d'équipe avant restitution au client).
+
+Aucun constat ne doit être formulé sur la base d'une déclaration verbale
+non corroborée par au moins une preuve documentaire ou technique
+(principe de triangulation des preuves).
+
+RÈGLE INTERNE : CONSTATS DE CONFORMITÉ
+
+Un constat n'est pas nécessairement un écart. Conformément à ISO 19011, un
+constat est le résultat de l'évaluation des preuves au regard des critères
+d'audit, et peut conclure à la conformité. Le cabinet impose qu'un rapport
+comporte au moins un constat de conformité formalisé par domaine audité
+(A.5, A.6, A.7, A.8), afin que le rapport rende compte du périmètre
+réellement vérifié et pas uniquement des écarts. Un constat de conformité
+suit le même formalisme qu'un écart (référence, énoncé factuel, preuve,
+exigence associée), la rubrique « Écart identifié » étant remplacée par
+une rubrique « Appréciation : Conforme ».
+
+Un constat de conformité ne doit jamais être rédigé par défaut ou par
+absence d'investigation : il atteste que le contrôle a été effectivement
+testé. La formulation doit mentionner ce qui a été vérifié et sur quel
+échantillon, faute de quoi elle n'a pas de valeur probante.
+
+RÈGLE INTERNE : ÉCHANTILLONNAGE
+
+Tout constat reposant sur un échantillon précise la population totale, la
+taille de l'échantillon et le mode de sélection (aléatoire, raisonné,
+exhaustif). Les seuils indicatifs retenus par le cabinet, à ajuster selon
+le jugement professionnel et la criticité :
+  - population inférieure à 10 éléments : examen exhaustif ;
+  - population de 10 à 100 : échantillon minimal de 10 éléments ;
+  - population supérieure à 100 : échantillon minimal de 15 éléments, avec
+    sur-représentation des éléments à privilèges ou critiques.
+Un écart détecté sur un échantillon est extrapolé avec prudence : le
+constat indique explicitement s'il porte sur l'échantillon seul ou s'il
+est présumé systémique, cette seconde qualification conditionnant le
+classement en non-conformité majeure.
+
+RÈGLE INTERNE : TRAITEMENT DES PREUVES
+
+Les preuves collectées sont conservées dans le dossier d'audit pendant
+cinq ans, sur un espace chiffré à accès restreint à l'équipe de mission.
+Toute preuve extraite des systèmes du client est minimisée avant
+intégration au dossier : les captures et exports sont expurgés des données
+à caractère personnel non nécessaires à la démonstration de l'écart, dans
+l'esprit du principe de minimisation de l'article 5 du RGPD.
+
+Les identifiants techniques et nominatifs (noms de serveurs, adresses IP,
+comptes utilisateurs, raisons sociales) figurant dans une preuve sont
+pseudonymisés dans le corps du rapport transmis au client sous forme
+CLIENT_001, SERVER_001, USER_001, la table de correspondance restant dans
+le dossier d'audit et n'étant jamais diffusée hors de l'équipe de mission.
+Cette règle s'applique a fortiori à tout traitement assisté par un outil
+d'intelligence artificielle : aucune donnée client identifiante ne doit
+être soumise à un moteur de génération, y compris interne.
+
+
+================================================================================
+  SECTION 05 : NON-CONFORMITÉS
+================================================================================
+
+Critères internes de classification (à appliquer de manière homogène par
+tous les auditeurs du cabinet, en complément du jugement professionnel) :
+
+Non-conformité MAJEURE si au moins un des critères suivants est rempli :
+  - Absence totale d'un processus ou contrôle exigé par la norme
+    applicable, sans mesure compensatoire documentée.
+  - Défaillance systémique touchant plusieurs occurrences ou plusieurs
+    sites/périmètres.
+  - Écart mettant en cause directement et significativement la capacité
+    du SMSI à atteindre ses objectifs (ex. absence de sauvegarde
+    fonctionnelle sur un système critique).
+  - Récurrence d'une non-conformité mineure non traitée depuis le cycle
+    d'audit précédent (Clause 10.2).
+
+Non-conformité MINEURE dans les autres cas où un écart avéré par rapport
+à une exigence est constaté mais reste isolé et non systémique.
+
+Toute non-conformité majeure doit faire l'objet d'une notification
+immédiate au commanditaire de la mission (pas d'attente du rapport final)
+et d'un plan d'action correctif avec échéance sous 90 jours, revu par
+l'Auditeur Principal avant clôture. Une non-conformité mineure fait
+l'objet d'un plan d'action avec échéance négociée avec le client,
+généralement sous 90 à 180 jours selon la complexité.
+
+Le modèle de rédaction interne d'une fiche de non-conformité comprend :
+Identifiant unique (format NC-AAAA-NNN), Référence norme/contrôle, Énoncé,
+Preuve, Exigence associée, Risque, Classification et justification de la
+classification, Échéance de remédiation proposée.
+
+
+================================================================================
+  SECTION 06 : OBSERVATIONS
+================================================================================
+
+Une observation est utilisée par les auditeurs du cabinet lorsque :
+  - un contrôle est mis en œuvre de manière conforme mais que sa
+    robustesse pourrait être améliorée sans qu'il y ait d'écart formel
+    par rapport à une exigence explicite ;
+  - une évolution récente de contexte (nouvelle technologie, nouvelle
+    réglementation) n'a pas encore été pleinement intégrée mais ne
+    constitue pas encore un écart démontrable ;
+  - un point mérite d'être signalé au comité de direction du client sans
+    déclencher formellement un plan d'action correctif obligatoire.
+
+Les observations ne sont pas soumises à un délai de remédiation
+contraignant, mais doivent être reprises et évaluées lors de la mission
+d'audit suivante afin de vérifier si elles ont évolué en non-conformité
+(faute de traitement) ou ont été résolues.
+
+
+================================================================================
+  SECTION 07 : OPPORTUNITÉS D'AMÉLIORATION
+================================================================================
+
+Les opportunités d'amélioration formulées par les auditeurs du cabinet
+doivent respecter les principes suivants :
+  - être formulées de manière actionnable (verbe d'action, cible mesurable
+    lorsque c'est possible) ;
+  - ne jamais prescrire une solution technique unique et propriétaire
+    (le cabinet reste indépendant des éditeurs et intégrateurs) ; il est
+    préférable de décrire l'objectif fonctionnel attendu (ex.
+    "automatiser la revue périodique des droits d'accès") plutôt qu'un
+    produit nommément désigné ;
+  - être hiérarchisées par ordre de priorité suggéré (élevée / moyenne /
+    faible) sur la base d'une estimation qualitative de l'effort de mise
+    en œuvre et du bénéfice attendu en réduction de risque.
+
+Les opportunités d'amélioration ne font pas l'objet d'un suivi
+contraignant par le cabinet, mais sont reprises à titre indicatif lors de
+la mission suivante pour évaluer si elles ont été mises en œuvre.
+
+Sources externes mobilisables à l'appui d'une opportunité d'amélioration.
+Le cabinet privilégie les référentiels publics et gratuitement accessibles,
+afin que le client puisse vérifier la recommandation par lui-même :
+  - ANSSI : guide d'hygiène informatique, recommandations relatives à
+    l'authentification multifacteur et aux mots de passe, guides de
+    durcissement par technologie, panorama annuel de la menace ;
+  - CNIL : guide de la sécurité des données personnelles, référentiels de
+    durées de conservation, méthodologie d'analyse d'impact (AIPD) ;
+  - NIST : SP 800-63B (authentification et gestion des secrets),
+    SP 800-88 (assainissement des supports), Cybersecurity Framework ;
+  - ISO : 27002 pour les lignes directrices de mise en œuvre, 27005 pour
+    l'appréciation des risques, 27035 pour la gestion des incidents,
+    19011 pour la conduite de l'audit lui-même.
+
+Lorsqu'une recommandation s'appuie sur une de ces sources, la référence
+est citée explicitement dans le corps de l'opportunité. Une recommandation
+qui contredirait une exigence à laquelle le client est légalement soumis
+ne doit jamais être formulée : en cas de divergence entre une bonne
+pratique et une obligation réglementaire, l'obligation prime et le point
+est traité en observation motivée plutôt qu'en opportunité.
+
+Exemples d'opportunités d'amélioration rédigées selon ces règles :
+
+- "Priorité élevée. Généraliser l'authentification multifacteur aux
+  services exposés sur Internet, en traitant d'abord les comptes à
+  privilèges. Objectif mesurable : 100 % des comptes à privilèges
+  couverts sous 90 jours. Appui : recommandations ANSSI relatives à
+  l'authentification multifacteur, NIST SP 800-63B."
+
+- "Priorité moyenne. Mettre en place une vérification automatisée de la
+  restaurabilité des sauvegardes, par restauration périodique d'un
+  échantillon tournant dans un environnement isolé, avec consignation du
+  délai de restauration constaté. Objectif mesurable : un test par
+  trimestre et par système critique. Appui : ISO/IEC 27002 §8.13, mesure
+  d'hygiène informatique ANSSI relative aux sauvegardes."
+
+- "Priorité moyenne. Réduire la durée de conservation des journaux
+  applicatifs contenant des données à caractère personnel à la durée
+  strictement nécessaire à la finalité de sécurité, en distinguant
+  rétention en ligne et archivage. Appui : principe de limitation de la
+  conservation (article 5 du RGPD), recommandations de la CNIL en matière
+  de journalisation."
+
+- "Priorité faible. Formaliser un tableau de suivi des opportunités
+  d'amélioration issues des cycles d'audit précédents, afin de matérialiser
+  la démarche d'amélioration continue attendue par la clause 10.1 lors de
+  la revue de direction."
+
+
+================================================================================
+  SECTION 08 : CONCLUSION
+================================================================================
+
+Règles internes de rédaction de la conclusion d'un rapport d'audit :
+
+La conclusion du rapport doit être rédigée par l'Auditeur Principal et
+validée en revue croisée avant transmission au client. Elle doit
+impérativement :
+  - rappeler le périmètre exact audité et le référentiel normatif
+    applicable (norme et version) ;
+  - synthétiser le nombre de constats par catégorie (non-conformités
+    majeures, mineures, observations, opportunités d'amélioration) ;
+  - formuler une position claire et non ambiguë quant à la recommandation
+    (le cas échéant, recommandation de certification, de maintien, ou de
+    suspension) ;
+  - rappeler les modalités et échéances de vérification des actions
+    correctives prévues (audit de suivi, revue documentaire, ou nouvel
+    audit sur site selon la gravité des constats) ;
+  - être exempte de toute formulation ambiguë susceptible d'être
+    interprétée comme une garantie d'absence de risque résiduel : le
+    cabinet certifie la conformité à un référentiel à un instant donné,
+    non l'absence totale de risque de sécurité de l'information.
+
+Toute conclusion recommandant une certification ou son maintien doit être
+contresignée par un second Auditeur Principal indépendant de la mission,
+conformément à la règle de revue croisée définie à la Section 03.

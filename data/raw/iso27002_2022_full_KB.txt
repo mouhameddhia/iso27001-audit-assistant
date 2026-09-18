@@ -1,0 +1,361 @@
+================================================================================
+DOCUMENT: ISO/IEC 27002:2022 - Sécurité de l'information, cybersécurité et
+protection de la vie privée - Mesures de sécurité de l'information
+================================================================================
+ID:             doc-iso27002-2022-full
+Category:       iso27002 / ISO 27002
+Language:       fr
+================================================================================
+
+
+================================================================================
+  SECTION 01 : INFORMATIONS GÉNÉRALES
+================================================================================
+
+ISO/IEC 27002:2022 est le référentiel de bonnes pratiques et de lignes
+directrices détaillées pour la mise en œuvre des contrôles de sécurité de
+l'information listés à l'Annexe A d'ISO/IEC 27001:2022. Alors qu'ISO 27001
+énonce des exigences auditables (le "quoi"), ISO 27002 explique comment
+mettre en œuvre chaque contrôle (le "comment") : elle n'est pas
+certifiable en tant que telle, mais constitue la référence quasi
+systématique consultée par les auditeurs et les praticiens pour évaluer
+si la mise en œuvre d'un contrôle est raisonnable et proportionnée.
+
+La structure d'ISO 27002:2022 reprend exactement les 93 contrôles
+organisés en quatre thèmes (Organisationnels, Personnes, Physiques,
+Technologiques), déjà présentés dans les documents de référence dédiés à
+chaque thème. La valeur ajoutée spécifique d'ISO 27002 réside dans :
+
+1. Le texte explicatif détaillé de chaque contrôle (Objectif, Mesure,
+   Lignes directrices de mise en œuvre, Autres informations).
+2. Le tableau des cinq attributs par contrôle, introduit dans la version
+   2022, permettant un filtrage transversal :
+   - Type de contrôle : Préventif, Détectif, Correctif.
+   - Propriétés de sécurité de l'information : Confidentialité,
+     Intégrité, Disponibilité.
+   - Concepts de cybersécurité (alignés NIST CSF) : Identifier, Protéger,
+     Détecter, Répondre, Récupérer.
+   - Capacités opérationnelles : Gouvernance, Gestion des actifs,
+     Protection de l'information, Sécurité des ressources humaines,
+     Sécurité physique, Sécurité des systèmes et réseaux, Sécurité des
+     applications, Configuration sécurisée, Gestion des identités et des
+     accès, Gestion des menaces et vulnérabilités, Continuité, Sécurité
+     des relations avec les fournisseurs, Conformité juridique, Gestion
+     des événements, Assurance de la sécurité de l'information.
+   - Domaines de sécurité : Gouvernance et Écosystème, Protection,
+     Défense, Résilience.
+
+Exemple d'attributs pour le contrôle 8.24 (Utilisation de la
+cryptographie) : Type = Préventif ; Propriétés = Confidentialité,
+Intégrité ; Concepts = Protéger ; Capacités = Protection de
+l'information ; Domaines = Protection.
+
+Cette structuration par attributs facilite grandement la génération de
+vues personnalisées pour un rapport d'audit ou une présentation à un
+comité (ex. "montrer uniquement les contrôles Détectifs applicables au
+périmètre cloud"), et constitue une source riche de métadonnées
+exploitables pour un moteur de recherche sémantique ou un graphe de
+connaissances.
+
+
+================================================================================
+  SECTION 02 : PORTÉE
+================================================================================
+
+ISO/IEC 27002:2022 s'adresse à toute organisation souhaitant :
+  - sélectionner les contrôles nécessaires dans le cadre de la mise en
+    œuvre d'un SMSI conforme à ISO/IEC 27001 ;
+  - mettre en œuvre des contrôles de sécurité de l'information
+    communément acceptés comme bonnes pratiques, indépendamment d'une
+    démarche de certification ;
+  - élaborer ses propres lignes directrices de management de la sécurité
+    de l'information, en tenant compte de son environnement de risque
+    spécifique.
+
+La norme ne fixe pas d'exigence de conformité en tant que telle : son
+usage est un choix de proportionnalité laissé à l'organisation, qui doit
+adapter les recommandations à son contexte (taille, secteur, exposition
+au risque, exigences réglementaires). Elle est explicitement conçue pour
+être utilisée conjointement avec ISO/IEC 27001 (mise en œuvre), ISO/IEC
+27005 (appréciation des risques) et les extensions sectorielles telles
+qu'ISO/IEC 27017 (cloud), ISO/IEC 27018 (protection des données à
+caractère personnel dans le cloud) et ISO/IEC 27701 (management de la
+vie privée).
+
+
+================================================================================
+  SECTION 03 : ÉQUIPE D'AUDIT
+================================================================================
+
+ISO/IEC 27002 n'étant pas une norme certifiable, elle n'est pas auditée en
+tant que telle ; elle sert cependant de référentiel d'évaluation lors de
+l'audit des contrôles de l'Annexe A d'ISO/IEC 27001. L'équipe d'audit doit
+donc maîtriser en détail le contenu de 27002 pour être en mesure de juger
+de la pertinence et de la suffisance d'une mesure mise en œuvre par
+l'organisation, notamment lorsque celle-ci a choisi une implémentation
+alternative aux lignes directrices standards (ce qui est autorisé, sous
+réserve de justification documentée dans la Déclaration d'Applicabilité).
+
+Un auditeur technique évaluant des contrôles A.8 (technologiques)
+s'appuiera typiquement sur les lignes directrices de mise en œuvre 27002
+pour comparer la configuration observée (ex. paramètres de rotation de
+clés cryptographiques pour A.8.24) aux standards de l'industrie qu'elles
+reflètent, en tenant compte du principe de proportionnalité au risque
+plutôt que d'une application littérale et rigide.
+
+
+================================================================================
+  SECTION 04 : CONSTATS
+================================================================================
+
+CONSTATS DE CONFORMITÉ
+
+Un contrôle vérifié et jugé correctement mis en œuvre au regard des lignes
+directrices 27002 fait l'objet d'un constat au même titre qu'un écart.
+Les exemples ci-dessous sont synthétiques ; seules les exigences citées en
+appui sont réelles.
+
+C-2026-101 (Conformité)
+Référence : ISO/IEC 27001 A.8.13, guidance ISO/IEC 27002 §8.13
+Énoncé : La politique de sauvegarde couvre la fréquence, la rétention et
+la vérification périodique de la restaurabilité. Les tests de restauration
+sont réalisés trimestriellement sur un échantillon tournant de systèmes.
+Les quatre tests attendus sur les douze derniers mois ont été conduits et
+leurs résultats consignés ; le dernier test, réalisé sur le système de
+facturation, a restitué les données dans un délai de 2 h 40 pour un
+objectif de 4 heures.
+Preuve : Politique de sauvegarde PROC-EXP-003 ; journal des tâches de
+sauvegarde sur la période ; quatre comptes rendus de test de restauration
+datés et signés ; registre de continuité mentionnant les résultats.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.13 ; lignes directrices
+27002 §8.13. La pratique rejoint la mesure du guide d'hygiène
+informatique de l'ANSSI relative aux sauvegardes et à la vérification de
+leur exploitabilité.
+Appréciation : Conforme. La restaurabilité est démontrée par la preuve,
+et non seulement documentée.
+
+C-2026-102 (Conformité)
+Référence : ISO/IEC 27001 A.7.1, guidance ISO/IEC 27002 §7.1-§7.4
+Énoncé : Les périmètres de sécurité physique sont définis et effectifs.
+L'accès à la salle serveurs est contrôlé par badge nominatif avec
+journalisation des entrées, la liste des personnes habilitées est revue
+semestriellement, et l'accompagnement des visiteurs est appliqué. La
+visite de site a permis de vérifier le verrouillage effectif des accès et
+la cohérence entre la liste d'habilitation et les badges actifs.
+Preuve : Export du journal des accès physiques sur trois mois ; liste des
+porteurs de badge habilités et compte rendu de la dernière revue ;
+observation directe lors de la visite du site ; registre des visiteurs.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.7.1, A.7.2, A.7.3,
+A.7.4 ; lignes directrices 27002 §7.1 à §7.4.
+Appréciation : Conforme.
+
+C-2026-103 (Conformité)
+Référence : ISO/IEC 27001 A.5.17, guidance ISO/IEC 27002 §5.17
+Énoncé : Les informations d'authentification sont gérées de manière
+sécurisée. Les identifiants par défaut des constructeurs ont été modifiés
+sur l'ensemble des 12 équipements réseau inventoriés, les secrets
+d'administration sont conservés dans un coffre-fort à accès tracé, et la
+remise d'un secret initial à un utilisateur impose son changement à la
+première connexion.
+Preuve : Inventaire des équipements réseau avec date de dernière
+modification des identifiants d'administration ; export des accès au
+coffre-fort de secrets ; test réalisé en séance sur un compte nouvellement
+créé confirmant le changement imposé à la première connexion.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.5.17 et A.8.5 ; lignes
+directrices 27002 §5.17. Le principe du changement des identifiants par
+défaut avant mise en production figure parmi les mesures de base du guide
+d'hygiène informatique de l'ANSSI.
+Appréciation : Conforme.
+
+C-2026-104 (Conformité)
+Référence : ISO/IEC 27001 A.8.24, guidance ISO/IEC 27002 §8.24
+Énoncé : L'usage de la cryptographie fait l'objet d'une politique
+formalisée précisant les algorithmes autorisés et la gestion du cycle de
+vie des clés. Le scan de configuration TLS réalisé sur les points de
+terminaison exposés ne fait apparaître que des suites TLS 1.2 et 1.3 ; le
+chiffrement des postes de travail est actif sur l'échantillon de 25
+machines examiné.
+Preuve : Politique cryptographique POL-SEC-012 ; rapport de scan TLS du
+[date] sur les points de terminaison publics ; export de l'état de
+chiffrement des disques depuis la console de gestion du parc.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.24 ; lignes directrices
+27002 §8.24. Les suites retenues sont cohérentes avec les recommandations
+de l'ANSSI relatives à la sécurisation des flux TLS.
+Appréciation : Conforme.
+
+CONSTATS D'ÉCART
+
+Exemples de constats formulés par référence croisée aux lignes directrices
+ISO 27002 :
+
+- "Référence 27002 §5.15 (Contrôle d'accès) : les lignes directrices
+  recommandent une politique de contrôle d'accès fondée sur le principe
+  du besoin d'en connaître et du moindre privilège. L'examen de la
+  matrice des droits pour l'application financière montre que 12
+  utilisateurs disposent d'un accès en écriture au module de paiement
+  sans justification métier documentée dans le dossier d'habilitation."
+
+- "Référence 27002 §8.24 (Cryptographie) : les lignes directrices
+  recommandent l'utilisation d'algorithmes à l'état de l'art (AES-256,
+  TLS 1.2 ou supérieur) et une politique de gestion des clés formalisée.
+  Le scan de configuration TLS réalisé sur l'API publique révèle
+  l'acceptation de connexions TLS 1.0, protocole déprécié depuis 2020."
+
+- "Référence 27002 §8.13 (Sauvegarde des informations) : les lignes
+  directrices recommandent la définition d'une politique de sauvegarde
+  couvrant la fréquence, la rétention et surtout la vérification
+  périodique de la restaurabilité des sauvegardes. L'audit de la
+  procédure de sauvegarde du système de facturation montre que les
+  sauvegardes quotidiennes sont bien exécutées, mais qu'aucun test de
+  restauration n'a été réalisé depuis la mise en production, quinze mois
+  plus tôt."
+
+- "Référence 27002 §7.1 à §7.4 (Sécurité physique) : les lignes
+  directrices recommandent la définition de périmètres de sécurité
+  physique, le contrôle des entrées, la sécurisation des bureaux et des
+  salles sensibles, ainsi qu'une surveillance physique proportionnée au
+  risque. La visite du site montre l'absence de contrôle d'accès par
+  badge sur la salle serveurs, accessible par une porte non verrouillée
+  pendant les heures de bureau."
+
+- "Référence 27002 §5.17 (Informations d'authentification) : les lignes
+  directrices recommandent l'allocation et la gestion sécurisées des
+  informations d'authentification (mots de passe, secrets), incluant le
+  changement systématique des identifiants par défaut fournis par le
+  constructeur avant mise en production. Le contrôle des équipements
+  réseau (routeurs, commutateurs) montre que les mots de passe
+  administrateur par défaut n'ont pas été modifiés sur 4 équipements sur
+  les 12 inventoriés."
+
+
+================================================================================
+  SECTION 05 : NON-CONFORMITÉS
+================================================================================
+
+NC-2026-021 (Mineure)
+Référence : ISO/IEC 27001 A.5.15, guidance ISO/IEC 27002 §5.15
+Énoncé : Douze comptes utilisateurs disposent d'un accès en écriture au
+module de paiement de l'application financière sans justification métier
+documentée, en écart avec le principe de moindre privilège recommandé par
+27002 §5.15 et exigé par la politique interne de contrôle d'accès.
+Preuve : Extraction de la matrice des droits applicatifs, dossier
+d'habilitation incomplet pour les 12 comptes concernés.
+Risque : Élargissement inutile de la surface d'attaque sur un processus
+financier sensible ; risque de fraude interne facilité par une
+ségrégation des tâches insuffisante (cf. A.5.3).
+
+NC-2026-022 (Majeure)
+Référence : ISO/IEC 27001 A.8.24, guidance ISO/IEC 27002 §8.24
+Énoncé : L'API publique accepte des connexions en TLS 1.0, protocole
+cryptographique déprécié et vulnérable à des attaques connues (ex.
+BEAST, POODLE dans ses variantes), en contradiction avec la politique
+cryptographique interne exigeant TLS 1.2 minimum.
+Preuve : Rapport de scan SSL/TLS du [date] sur le point de terminaison
+api.[domaine].
+Risque : Interception ou altération de communications contenant des
+données potentiellement sensibles ; exposition directe depuis Internet
+aggravant la criticité.
+
+NC-2026-023 (Mineure)
+Référence : ISO/IEC 27001 A.8.13, guidance ISO/IEC 27002 §8.13
+Énoncé : Les sauvegardes quotidiennes du système de facturation sont
+exécutées conformément à la politique interne, mais aucun test de
+restauration n'a été effectué depuis la mise en production quinze mois
+plus tôt, en écart avec l'exigence de vérification périodique de la
+restaurabilité recommandée par 27002 §8.13.
+Preuve : Journal des tâches de sauvegarde, absence de rapport de test de
+restauration dans le registre de continuité.
+Risque : Une sauvegarde non testée ne garantit pas la capacité réelle de
+reprise après incident ; un défaut de restaurabilité ne serait découvert
+que lors d'un sinistre réel, aggravant l'impact d'une perte de données.
+
+NC-2026-024 (Majeure)
+Référence : ISO/IEC 27001 A.7.1, guidance ISO/IEC 27002 §7.1-§7.4
+Énoncé : La salle serveurs du site audité est accessible par une porte
+non verrouillée pendant les heures de bureau, sans contrôle d'accès par
+badge ni journalisation des entrées, en écart avec les lignes directrices
+relatives aux périmètres de sécurité physique et au contrôle des
+entrées.
+Preuve : Constat visuel lors de la visite du site, absence de registre
+d'accès physique à la salle serveurs.
+Risque : Accès physique non autorisé aux équipements hébergeant des
+données sensibles, pouvant conduire à un vol, une altération ou une
+compromission directe des systèmes, sans possibilité de traçabilité a
+posteriori.
+
+NC-2026-025 (Mineure)
+Référence : ISO/IEC 27001 A.5.17, guidance ISO/IEC 27002 §5.17
+Énoncé : Les mots de passe administrateur par défaut fournis par le
+constructeur n'ont pas été modifiés sur 4 équipements réseau sur les 12
+inventoriés, en écart avec les lignes directrices relatives à la gestion
+sécurisée des informations d'authentification.
+Preuve : Extraction de l'inventaire des équipements réseau et des dates
+de dernière modification des identifiants administrateur.
+Risque : Des identifiants par défaut, largement documentés publiquement
+par constructeur et modèle, offrent un vecteur de compromission immédiat
+pour un attaquant ayant un accès réseau, sans nécessiter d'exploitation
+technique.
+
+
+================================================================================
+  SECTION 06 : OBSERVATIONS
+================================================================================
+
+- "Il est observé que le tableau des cinq attributs ISO/IEC 27002:2022
+  n'est pas utilisé en interne pour prioriser les contrôles lors de la
+  planification de l'audit interne, alors qu'il pourrait faciliter le
+  ciblage des contrôles à forte valeur de détection (Type = Détectif)
+  dans un contexte de ressources d'audit limitées."
+
+- "La politique de cryptographie interne référence les lignes directrices
+  27002 §8.24 mais n'a pas été mise à jour depuis la publication de la
+  version 2022 de la norme ; certaines recommandations relatives à la
+  gestion du cycle de vie des clés dans des environnements cloud-natifs
+  ne sont pas explicitement couvertes."
+
+- "Il est observé que la procédure de sauvegarde ne précise pas la
+  fréquence attendue des tests de restauration, alors que 27002 §8.13
+  recommande de définir ce rythme en fonction de la criticité des
+  données et de l'objectif de délai de rétablissement (RTO)."
+
+
+================================================================================
+  SECTION 07 : OPPORTUNITÉS D'AMÉLIORATION
+================================================================================
+
+- "Utiliser les attributs de contrôle ISO/IEC 27002:2022 (type, concept
+  de cybersécurité, capacité opérationnelle) comme critère de
+  priorisation dans le plan d'audit interne triennal, afin d'assurer une
+  couverture équilibrée entre contrôles Préventifs, Détectifs et
+  Correctifs."
+
+- "Mettre à jour la politique de cryptographie interne pour refléter
+  explicitement les lignes directrices actualisées de 27002:2022 §8.24,
+  en particulier concernant la gestion des clés dans les services
+  cloud managés (KMS/HSM as a service)."
+
+- "Mettre en place un calendrier trimestriel de tests de restauration des
+  sauvegardes critiques, avec traçabilité des résultats dans le registre
+  de continuité, conformément aux lignes directrices 27002 §8.13."
+
+- "Étendre le contrôle d'accès par badge, déjà en place sur l'entrée
+  principale du site, à la salle serveurs et aux autres locaux techniques
+  sensibles, conformément aux lignes directrices 27002 §7.1-§7.3."
+
+
+================================================================================
+  SECTION 08 : CONCLUSION
+================================================================================
+
+Modèle de conclusion (usage en tant que référentiel de conformité pour
+les contrôles A.5-A.8 d'ISO/IEC 27001) :
+
+"L'évaluation des contrôles mis en œuvre au regard des lignes directrices
+détaillées d'ISO/IEC 27002:2022 confirme un niveau de maturité
+globalement [satisfaisant / à renforcer] sur le périmètre audité. Les
+écarts identifiés portent principalement sur [domaines concernés] et font
+l'objet des non-conformités et opportunités d'amélioration détaillées
+dans le présent rapport. Il est recommandé de revoir périodiquement
+l'alignement de la documentation interne avec les évolutions des lignes
+directrices 27002, notamment à l'occasion des mises à jour majeures de la
+norme."

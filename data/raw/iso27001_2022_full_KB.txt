@@ -1,0 +1,671 @@
+================================================================================
+DOCUMENT: ISO/IEC 27001:2022 - Systèmes de management de la sécurité de
+l'information - Exigences
+================================================================================
+ID:             doc-iso27001-2022-full
+Category:       iso27001 / ISO 27001
+Language:       fr
+================================================================================
+
+
+================================================================================
+  SECTION 01 : INFORMATIONS GÉNÉRALES
+================================================================================
+
+ISO/IEC 27001:2022 est la norme internationale de référence pour les
+systèmes de management de la sécurité de l'information (SMSI / ISMS).
+Publiée conjointement par l'ISO et la CEI, elle définit les exigences
+permettant à une organisation d'établir, mettre en œuvre, maintenir et
+améliorer en continu un SMSI. Contrairement à ISO/IEC 27002, qui fournit
+des lignes directrices de mise en œuvre, ISO/IEC 27001 énonce des
+exigences auditables et certifiables : c'est la norme contre laquelle un
+organisme de certification accrédité délivre un certificat.
+
+La version 2022 remplace ISO/IEC 27001:2013 et introduit une réorganisation
+majeure de l'Annexe A, désormais structurée en quatre thèmes (au lieu de
+14 domaines) totalisant 93 contrôles :
+  - A.5 Contrôles organisationnels (37 contrôles)
+  - A.6 Contrôles liés aux personnes (8 contrôles)
+  - A.7 Contrôles physiques (14 contrôles)
+  - A.8 Contrôles technologiques (34 contrôles)
+
+Chaque contrôle de l'Annexe A 2022 est également associé à cinq attributs
+définis par ISO/IEC 27002:2022 (type de contrôle, propriétés de sécurité
+de l'information, concepts de cybersécurité, capacités opérationnelles,
+domaines de sécurité), qui permettent un filtrage multidimensionnel utile
+pour la production de vues personnalisées (ex. tous les contrôles liés à
+la "Protection", ou tous les contrôles relevant du domaine "Gouvernance
+et Écosystème").
+
+La structure de la norme suit le cadre commun "Harmonized Structure" (HS)
+partagé par toutes les normes de systèmes de management ISO récentes
+(ISO 9001, ISO 22301, ISO 27701, etc.), ce qui facilite les audits
+combinés et l'intégration de plusieurs systèmes de management au sein
+d'une même organisation. Les clauses 4 à 10 sont obligatoires ; l'Annexe A
+constitue une liste de référence de contrôles dont l'applicabilité est
+déterminée par l'organisation elle-même à l'issue de son appréciation des
+risques, puis documentée dans la Déclaration d'Applicabilité (SoA -
+Statement of Applicability), document central de tout audit de
+certification.
+
+La certification ISO/IEC 27001 est délivrée pour un cycle de trois ans,
+avec un audit de certification initial (Stage 1 puis Stage 2), des audits
+de surveillance annuels à portée partielle, et un audit de
+recertification à portée complète avant l'expiration du certificat.
+L'organisme de certification doit lui-même être accrédité conformément à
+ISO/IEC 27006, qui fixe les exigences spécifiques applicables aux
+organismes réalisant l'audit et la certification des SMSI.
+
+NATURE DES DONNÉES D'EXEMPLE CONTENUES DANS CE DOCUMENT
+
+Les constats, non-conformités, observations et opportunités d'amélioration
+cités dans les sections 04 à 07 sont des exemples entièrement SYNTHÉTIQUES,
+construits pour illustrer la formulation attendue dans un rapport d'audit.
+Ils ne décrivent aucune organisation réelle : les identifiants de constats
+(NC-2026-xxx, C-2026-xxx), les références documentaires (POL-SEC-004,
+JIRA-SEC-1182), les chiffres et les dates sont fictifs. Seules les
+exigences normatives citées en appui sont réelles et vérifiables auprès
+de leurs sources officielles : ISO/IEC 27001:2022 et ISO/IEC 27002:2022
+pour les contrôles, ISO 19011 pour la conduite de l'audit, et selon les
+sujets les publications de l'ANSSI (guide d'hygiène informatique,
+recommandations relatives à l'authentification et aux mots de passe), de
+la CNIL (sécurité des données personnelles, durées de conservation,
+analyse d'impact) et du NIST (SP 800-63B pour l'authentification,
+Cybersecurity Framework).
+
+Un constat d'audit ne se limite pas à relever un écart : conformément à
+ISO 19011, un constat est le résultat de l'évaluation des preuves d'audit
+au regard des critères d'audit, et il peut indiquer aussi bien une
+CONFORMITÉ qu'une NON-CONFORMITÉ. La section 04 donne donc des exemples
+des deux natures : documenter un contrôle correctement mis en œuvre est
+un résultat d'audit à part entière, nécessaire à l'équilibre du rapport
+et à la traçabilité de ce qui a réellement été vérifié.
+
+
+================================================================================
+  SECTION 02 : PORTÉE
+================================================================================
+
+ISO/IEC 27001:2022 est applicable à toute organisation, quel que soit son
+type, sa taille ou sa nature d'activité (privée, publique, à but non
+lucratif), qui souhaite :
+  - établir, mettre en œuvre, maintenir et améliorer en continu un SMSI ;
+  - s'assurer de la conformité aux politiques de sécurité de l'information
+    qu'elle a elle-même déclarées ;
+  - démontrer la conformité aux exigences de la norme par auto-évaluation,
+    par un tiers (client, partenaire) ou par certification via un
+    organisme accrédité.
+
+Le périmètre effectif du SMSI (Clause 4.3) doit être documenté et peut
+être limité à une partie de l'organisation (par exemple un site, une
+ligne de service, une filiale) à condition que les frontières et
+interfaces avec le reste de l'organisation soient clairement identifiées
+et gérées. Un périmètre trop restreint ou mal justifié (ex. exclusion
+d'une équipe de développement gérant pourtant des données clients) est
+une source fréquente de non-conformité lors des audits Stage 1.
+
+Sont typiquement inclus dans le périmètre : les processus métier
+supportant les actifs informationnels concernés, les systèmes
+d'information associés, les sites physiques hébergeant ces systèmes, et
+le personnel (interne et prestataires) ayant accès aux informations dans
+le périmètre.
+
+Sont typiquement traités comme exclusions justifiées (et non simplement
+omis) : les contrôles de l'Annexe A.7 (Contrôles physiques) pour une
+organisation entièrement hébergée chez un fournisseur cloud sans locaux
+propres ; certains contrôles A.8.25-A.8.30 (cycle de développement) pour
+une organisation n'ayant aucune activité de développement logiciel
+interne ou externalisée.
+
+
+================================================================================
+  SECTION 03 : ÉQUIPE D'AUDIT
+================================================================================
+
+Un audit ISO/IEC 27001, qu'il soit interne (Clause 9.2) ou réalisé par un
+organisme de certification, doit être mené par des personnes disposant
+des compétences suivantes :
+
+  - Connaissance approfondie de la norme ISO/IEC 27001:2022 et de
+    ISO/IEC 27002:2022 (guide d'implémentation des contrôles).
+  - Maîtrise des principes d'audit selon ISO 19011 (planification,
+    conduite, rapport, indépendance, approche basée sur les preuves).
+  - Compétences techniques suffisantes pour évaluer les contrôles
+    technologiques (A.8) : réseaux, cryptographie, gestion des identités,
+    cycle de développement sécurisé.
+  - Indépendance vis-à-vis du périmètre audité : un auditeur interne ne
+    peut pas auditer un processus dont il est responsable opérationnel.
+
+Composition typique d'une équipe d'audit de certification (Stage 2) :
+  - Auditeur principal (Lead Auditor) : responsable de la planification,
+    de la coordination de l'équipe, et de la décision de recommandation
+    finale.
+  - Auditeur(s) technique(s) : spécialisés selon le périmètre (réseaux et
+    infrastructure cloud, développement logiciel sécurisé, protection des
+    données personnelles si le SMSI couvre également ISO/IEC 27701).
+  - Expert technique / observateur (le cas échéant) : pour des domaines
+    hautement spécialisés (OT/SCADA, environnements de santé, secteur
+    financier réglementé).
+
+Pour un audit interne, l'équipe est souvent réduite à un ou deux
+auditeurs internes certifiés (formation ISO 27001 Lead Auditor ou
+équivalent), complétés ponctuellement par un expert technique du domaine
+audité agissant en tant qu'observateur non décisionnaire afin de
+préserver l'indépendance du jugement d'audit.
+
+
+================================================================================
+  SECTION 04 : CONSTATS
+================================================================================
+
+Un constat d'audit ISO 27001 bien formulé associe systématiquement :
+référence de clause/contrôle, description factuelle de la situation
+observée, preuve collectée, et écart éventuel par rapport à l'exigence.
+
+NATURE ET SUFFISANCE DES PREUVES D'AUDIT
+
+ISO 19011 définit la preuve d'audit comme un enregistrement, un énoncé de
+fait ou une autre information pertinente au regard des critères d'audit et
+vérifiable. Trois qualités sont attendues : la preuve doit être vérifiable
+(un tiers doit pouvoir la retrouver), suffisante (en quantité permettant
+de conclure) et appropriée (elle porte bien sur l'exigence évaluée). Une
+déclaration en entretien, non corroborée par un enregistrement, ne suffit
+pas à elle seule à établir la conformité d'un contrôle technique.
+
+Types de preuves collectées lors d'un audit SMSI, par ordre de robustesse
+décroissante :
+  - preuve technique extraite du système lui-même : export de
+    configuration, capture d'écran horodatée, journal applicatif, rapport
+    d'outil (scan de vulnérabilités, console EDR, outil IAM) ;
+  - enregistrement de processus : ticket, compte rendu de comité, procès-
+    verbal de revue de direction, registre de formation, bordereau de
+    destruction de supports ;
+  - document approuvé : politique, procédure, Déclaration d'Applicabilité,
+    contrat ou annexe sécurité d'un contrat fournisseur ;
+  - observation directe de l'auditeur : visite de site, assistance à une
+    manipulation, test de rejeu ;
+  - déclaration en entretien, à corroborer systématiquement.
+
+Un constat doit préciser la taille et le mode de constitution de
+l'échantillon examiné lorsqu'il repose sur un échantillonnage ("12 des 87
+comptes à privilèges, sélectionnés aléatoirement"), faute de quoi la
+conclusion n'est pas reproductible par un autre auditeur.
+
+CONSTATS DE CONFORMITÉ
+
+Un contrôle vérifié et jugé correctement mis en œuvre fait l'objet d'un
+constat au même titre qu'un écart. Ces constats matérialisent le périmètre
+réellement couvert par l'audit et évitent qu'un rapport ne donne, par
+construction, une image uniquement négative du SMSI.
+
+C-2026-001 (Conformité)
+Référence : A.8.7 - Protection contre les logiciels malveillants
+Énoncé : La protection contre les codes malveillants est déployée sur
+l'ensemble du parc examiné. L'échantillon de 25 postes et 10 serveurs
+sélectionné aléatoirement dans l'inventaire montre un agent EDR actif,
+avec des signatures datant de moins de 24 heures et une remontée effective
+vers la console centrale.
+Preuve : Export de la console EDR du [date] (taux de couverture 99,2 %,
+3 postes en écart tous identifiés comme hors service et sortis de
+l'inventaire) ; procédure de traitement des alertes PROC-SEC-011 ;
+échantillon de 4 alertes tracées de la détection à la clôture.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.7. La mesure rejoint
+la mesure d'hygiène informatique de l'ANSSI relative à la protection des
+postes de travail contre les codes malveillants.
+Appréciation : Conforme. Aucun écart relevé sur l'échantillon.
+
+C-2026-002 (Conformité)
+Référence : A.5.24 / A.5.26 - Gestion des incidents de sécurité
+Énoncé : Le processus de gestion des incidents est formalisé, connu des
+équipes et effectivement appliqué. Les 6 incidents survenus sur les
+12 derniers mois ont tous été qualifiés, tracés et clôturés avec analyse
+des causes. Le délai moyen de qualification observé est de 2 h 10 pour un
+objectif interne de 4 heures.
+Preuve : Procédure de gestion des incidents PROC-SEC-004 (version
+approuvée en comité de sécurité) ; extraction complète du registre des
+incidents ; compte rendu du dernier exercice de simulation ; entretien
+avec l'astreinte sécurité.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.5.24, A.5.25, A.5.26.
+Le dispositif couvre également la capacité de notification exigée par
+l'article 33 du RGPD (72 heures à l'autorité de contrôle) et par la
+directive NIS2 (alerte précoce à 24 heures pour les entités concernées).
+Appréciation : Conforme.
+
+C-2026-003 (Conformité)
+Référence : A.8.15 / A.8.16 - Journalisation et surveillance
+Énoncé : Les événements de sécurité des systèmes du périmètre sont
+journalisés, centralisés dans un SIEM et conservés 12 mois en ligne puis
+6 mois en archive. Les journaux sont protégés en intégrité et les droits
+d'accès en lecture sont restreints à l'équipe sécurité.
+Preuve : Architecture de collecte documentée ; export de la politique de
+rétention du SIEM ; test de rejeu effectué en séance sur un événement
+d'authentification en échec, retrouvé et horodaté ; matrice des droits
+d'accès à l'outil.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.15, A.8.16. La durée
+de conservation retenue est cohérente avec la recommandation de l'ANSSI
+en matière de journalisation et avec l'exigence de traçabilité sur douze
+mois glissants fixée par la politique interne.
+Appréciation : Conforme.
+
+C-2026-005 (Conformité)
+Référence : A.5.18 - Droits d'accès
+Énoncé : La revue périodique des droits d'accès privilégiés est réalisée
+à la périodicité définie par la politique de contrôle d'accès et donne
+lieu à un enregistrement daté. Les quatre campagnes attendues sur les
+douze derniers mois ont toutes été conduites et clôturées, la dernière
+remontant à moins de trois mois. L'échantillon de 12 comptes à
+privilèges examiné sur les 87 recensés montre pour chacun une
+revalidation explicite par le responsable hiérarchique, et les 3
+retraits de droits décidés lors de la dernière campagne ont été
+effectivement appliqués dans l'annuaire.
+Preuve : Historique complet des campagnes de revue (export de l'outil
+IAM, horodaté) ; comptes rendus de revue signés par les valideurs ;
+rapprochement en séance entre les décisions de retrait et l'état réel des
+groupes d'habilitation ; politique de contrôle d'accès POL-SEC-004 §4.2
+fixant la périodicité.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.5.18 ; Clause 8.1
+(planification et maîtrise opérationnelles). La pratique rejoint la
+recommandation de l'ANSSI relative à la revue régulière des comptes à
+privilèges.
+Appréciation : Conforme. Le dispositif est appliqué, tracé et vérifiable.
+
+C-2026-006 (Conformité)
+Référence : A.8.8 - Gestion des vulnérabilités techniques
+Énoncé : Le processus de gestion des vulnérabilités techniques respecte
+les délais de remédiation fixés par la politique interne. Le tableau de
+bord de suivi ne fait apparaître, sur le périmètre applicatif examiné,
+aucune vulnérabilité de sévérité Critique ou Élevée ouverte au-delà du
+délai cible (15 jours pour Critique, 30 jours pour Élevée). Le délai
+moyen de remédiation des vulnérabilités critiques sur les six derniers
+mois s'établit à 6 jours.
+Preuve : Rapport de scan de vulnérabilités du [date] ; tableau de bord de
+suivi présentant l'antériorité par criticité ; échantillon de 5 tickets
+de remédiation tracés de la détection à la vérification de correction ;
+politique de gestion des vulnérabilités POL-SEC-009.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.8.
+Appréciation : Conforme.
+
+C-2026-007 (Conformité)
+Référence : A.6.3 - Sensibilisation, éducation et formation
+Énoncé : La formation annuelle de sensibilisation à la sécurité de
+l'information a été suivie par 97 % du personnel concerné, au-delà de
+l'objectif interne de 95 % fixé au titre de la clause 6.2. Les
+collaborateurs arrivés en cours d'année sont intégrés au parcours dans
+le mois suivant leur prise de poste. Deux campagnes de simulation
+d'hameçonnage ont été conduites, avec un taux de clic en recul de 14 % à
+6 % entre la première et la seconde.
+Preuve : Registre de formation extrait de la plateforme LMS (taux par
+direction) ; rapports des deux campagnes de simulation ; support de
+formation daté ; échantillon de 6 dossiers d'intégration de nouveaux
+arrivants.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.6.3 ; Clause 7.2
+(compétences) et 7.3 (sensibilisation).
+Appréciation : Conforme.
+
+C-2026-004 (Conformité)
+Référence : A.5.19 / A.5.20 - Sécurité dans les relations fournisseurs
+Énoncé : Les 8 fournisseurs qualifiés de critiques dans le registre des
+sous-traitants disposent tous d'une annexe sécurité contractuelle
+couvrant la confidentialité, la notification d'incident et le droit
+d'audit. Deux d'entre eux ont fait l'objet d'une évaluation sur pièces au
+cours de l'exercice.
+Preuve : Registre des fournisseurs critiques ; contrats et annexes
+sécurité des 8 fournisseurs (revus par sondage sur 4) ; rapports
+d'évaluation fournisseur ; attestations ISO/IEC 27001 en cours de
+validité pour 5 des 8 prestataires.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.5.19, A.5.20, A.5.22.
+Appréciation : Conforme.
+
+CONSTATS D'ÉCART
+
+Exemples de constats fréquemment rencontrés (formulation-type) :
+
+- "Référence A.5.18 (Droits d'accès) : la revue périodique des droits
+  d'accès privilégiés est définie dans la politique comme devant être
+  réalisée tous les six mois. L'examen de l'historique montre que la
+  dernière revue complète documentée date de 14 mois."
+
+- "Référence A.8.8 (Gestion des vulnérabilités techniques) : le tableau
+  de bord de gestion des vulnérabilités présenté fait apparaître trois
+  vulnérabilités classées Critique, ouvertes depuis respectivement 45,
+  62 et 90 jours, contre un délai de traitement cible de 15 jours défini
+  dans la politique de gestion des vulnérabilités."
+
+- "Référence Clause 9.2 (Audit interne) : le programme d'audit interne
+  couvre l'ensemble des clauses et contrôles applicables sur un cycle de
+  trois ans ; cependant, aucun audit interne portant sur le domaine
+  A.8 (Contrôles technologiques) n'a été réalisé depuis la certification
+  initiale il y a 18 mois."
+
+- "Référence A.6.3 (Sensibilisation, éducation et formation) : le taux
+  d'achèvement de la formation annuelle de sensibilisation à la sécurité
+  s'élève à 68 % du personnel concerné, contre un objectif interne de
+  95 % fixé dans les objectifs de sécurité de l'information (Clause
+  6.2)."
+
+- "Référence A.8.5 (Authentification sécurisée) : l'authentification
+  multifacteur est activée pour les accès distants VPN et pour la console
+  d'administration cloud, mais n'est pas exigée pour l'accès à la
+  messagerie depuis Internet, qui reste protégée par mot de passe seul.
+  L'export du fournisseur d'identité montre 214 comptes concernés, dont
+  12 comptes disposant de privilèges élevés."
+
+- "Référence A.8.31 (Séparation des environnements) : l'environnement de
+  recette utilise une copie de la base de production restaurée
+  mensuellement, sans anonymisation ni pseudonymisation des données à
+  caractère personnel qu'elle contient. Les 9 développeurs de l'équipe
+  applicative disposent d'un accès en lecture à cet environnement."
+
+- "Référence A.7.10 / A.7.14 (Supports de stockage et mise au rebut) : la
+  procédure de mise au rebut du matériel prévoit l'effacement sécurisé
+  des supports, mais aucun bordereau de destruction n'a pu être présenté
+  pour les 15 postes sortis de l'inventaire au cours du dernier
+  trimestre."
+
+- "Référence Clause 9.3 (Revue de direction) : la revue de direction
+  s'est tenue une fois au cours des douze derniers mois. Le compte rendu
+  examiné couvre les performances du SMSI et l'état des actions
+  correctives, mais ne trace ni les retours des parties intéressées ni
+  l'évaluation des opportunités d'amélioration, deux éléments d'entrée
+  explicitement requis par la clause."
+
+- "Référence A.8.12 (Prévention de la fuite de données) : aucune mesure
+  technique de prévention de la fuite de données n'est déployée sur les
+  canaux de sortie (messagerie, stockage amovible, partage cloud), alors
+  que la Déclaration d'Applicabilité déclare le contrôle A.8.12
+  applicable et mis en œuvre."
+
+
+================================================================================
+  SECTION 05 : NON-CONFORMITÉS
+================================================================================
+
+Une non-conformité formalise un constat qui représente un écart avéré par
+rapport à une exigence de la norme ou à une exigence auto-imposée par
+l'organisation dans sa documentation SMSI. Elle est classée Majeure ou
+Mineure selon sa gravité et son caractère systémique.
+
+Exemples de non-conformités rédigées selon un format professionnel :
+
+NC-2026-014 (Mineure)
+Référence : A.5.18 - Droits d'accès
+Énoncé : La revue périodique des droits d'accès privilégiés, requise
+semestriellement par la politique de contrôle d'accès (réf. POL-SEC-004,
+§4.2), n'a pas été réalisée dans les délais pour le dernier cycle
+(dernière revue documentée : 14 mois).
+Preuve : Historique des campagnes de revue d'accès (export outil IAM),
+entretien avec le titulaire du processus.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.5.18 ; Clause 8.1
+(planification et maîtrise opérationnelles).
+Risque : Maintien de droits d'accès non justifiés, augmentant la surface
+d'exposition en cas de compromission de compte.
+
+NC-2026-015 (Majeure)
+Référence : A.8.8 - Gestion des vulnérabilités techniques
+Énoncé : Trois vulnérabilités critiques restent non corrigées au-delà du
+délai maximal de 15 jours défini par la politique de gestion des
+vulnérabilités, l'une d'elles étant exposée sur un service accessible
+depuis Internet.
+Preuve : Rapport de scan de vulnérabilités du [date], ticket de suivi
+JIRA-SEC-1182.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.8.
+Risque : Exploitation possible d'une vulnérabilité connue sur un système
+exposé, pouvant conduire à une compromission de données.
+Classement en Majeure : caractère systémique (plusieurs occurrences),
+exposition directe à Internet, dépassement significatif du délai cible.
+
+NC-2026-016 (Majeure)
+Référence : A.8.5 - Authentification sécurisée
+Énoncé : L'accès à la messagerie d'entreprise depuis Internet ne requiert
+pas d'authentification multifacteur. 214 comptes sont concernés, dont
+12 disposant de privilèges d'administration sur des ressources du
+périmètre certifié, alors que la politique de contrôle d'accès interne
+(POL-SEC-004, §3.1) impose un second facteur pour toute exposition
+externe.
+Preuve : Export des stratégies d'accès conditionnel du fournisseur
+d'identité du [date] ; liste nominative des 214 comptes concernés extraite
+de l'annuaire ; test de connexion réalisé en séance depuis un poste hors
+du réseau interne, aboutissant avec mot de passe seul ; entretien avec
+l'administrateur de la messagerie confirmant l'absence de projet de
+déploiement planifié.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.5 et A.5.17. L'ANSSI
+recommande l'authentification multifacteur pour tout accès distant à un
+service exposé, et le NIST SP 800-63B classe le mot de passe seul au
+niveau d'assurance d'authentification le plus faible (AAL1), insuffisant
+pour des comptes à privilèges.
+Risque : Compromission de compte par hameçonnage ou rejeu d'identifiants
+issus de fuites publiques, donnant accès à la correspondance de
+l'organisation et, pour 12 comptes, à des fonctions d'administration.
+Classement en Majeure : exposition directe sur Internet, population
+importante, inclusion de comptes à privilèges, et écart à une exigence
+que l'organisation s'est elle-même imposée.
+
+NC-2026-017 (Majeure)
+Référence : A.8.31 - Séparation des environnements de développement, de
+test et de production
+Énoncé : L'environnement de recette est alimenté par une copie intégrale
+et non anonymisée de la base de production, contenant des données à
+caractère personnel de clients (identité, coordonnées, historique de
+facturation). Neuf développeurs y disposent d'un accès en lecture sans
+que ce traitement soit mentionné au registre des activités de traitement.
+Preuve : Script de restauration mensuelle planifié (extrait de
+l'ordonnanceur) ; requête exécutée en séance sur l'environnement de
+recette retournant des données personnelles en clair ; matrice des accès
+à l'environnement de recette ; registre des activités de traitement ne
+comportant aucune entrée pour cet environnement.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.31, A.8.33 (protection
+des données de test) et A.5.34. Sur le volet données personnelles,
+l'utilisation de données réelles en environnement de test relève de
+l'article 32 du RGPD (sécurité du traitement) et du principe de
+minimisation de l'article 5 ; la CNIL recommande explicitement d'utiliser
+des jeux de données fictifs ou anonymisés pour les phases de
+développement et de test.
+Risque : Exposition de données à caractère personnel à une population
+plus large que nécessaire, dans un environnement dont le niveau de
+sécurisation est inférieur à celui de la production ; violation de
+données au sens de l'article 4.12 du RGPD en cas de compromission.
+Classement en Majeure : données à caractère personnel en volume,
+défaut de base documentaire (registre), et absence de mesure compensatoire.
+
+NC-2026-018 (Mineure)
+Référence : Clause 9.3 - Revue de direction
+Énoncé : Le compte rendu de la revue de direction du [date] ne trace pas
+deux éléments d'entrée requis par la clause 9.3.2 : les retours des
+parties intéressées pertinentes et les opportunités d'amélioration
+continue. La revue s'est par ailleurs tenue une seule fois sur la période,
+conformément à la périodicité annuelle définie en interne.
+Preuve : Compte rendu de la revue de direction du [date] ; ordre du jour
+et liste d'émargement ; procédure PROC-SMSI-002 décrivant les éléments
+d'entrée attendus.
+Exigence associée : ISO/IEC 27001:2022, Clause 9.3.2 (éléments d'entrée
+de la revue de direction).
+Risque : Décisions de direction prises sans visibilité sur les attentes
+des parties intéressées ; affaiblissement du mécanisme d'amélioration
+continue exigé par la clause 10.1.
+Classement en Mineure : écart documentaire ponctuel, sans défaillance
+constatée du dispositif de pilotage dans son ensemble.
+
+NC-2026-019 (Mineure)
+Référence : A.7.10 / A.7.14 - Supports de stockage et mise au rebut
+sécurisée du matériel
+Énoncé : Aucun enregistrement de destruction ou d'effacement sécurisé
+n'a pu être présenté pour les 15 postes de travail sortis de l'inventaire
+au cours du dernier trimestre, alors que la procédure interne
+PROC-EXP-007 impose l'émission d'un bordereau contresigné pour chaque
+support éliminé.
+Preuve : Inventaire des actifs faisant apparaître 15 sorties sur la
+période ; absence de bordereau correspondant dans le classeur de
+traçabilité ; entretien avec le service généraux indiquant une reprise
+des matériels par le prestataire de renouvellement sans formalisation.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.7.10, A.7.14 et A.5.9
+(inventaire des actifs). L'ANSSI rappelle dans son guide d'hygiène
+informatique la nécessité d'un effacement sécurisé avant réemploi ou mise
+au rebut ; le NIST SP 800-88 fournit le référentiel de méthodes
+d'assainissement des supports.
+Risque : Récupération de données résiduelles sur des supports sortis du
+contrôle de l'organisation ; impossibilité de démontrer la destruction en
+cas de contrôle ou de suspicion de fuite.
+Classement en Mineure : absence de preuve de compromission, procédure
+existante mais non appliquée sur la période.
+
+NC-2026-020 (Mineure)
+Référence : A.8.12 - Prévention de la fuite de données
+Énoncé : La Déclaration d'Applicabilité en vigueur déclare le contrôle
+A.8.12 applicable et mis en œuvre, alors qu'aucune mesure technique de
+prévention de la fuite de données n'est déployée sur les canaux de sortie
+(messagerie, supports amovibles, partage cloud). L'écart porte donc
+autant sur le contrôle lui-même que sur l'exactitude de la SoA.
+Preuve : Déclaration d'Applicabilité version [date], ligne A.8.12 ;
+entretien avec l'équipe sécurité confirmant l'absence d'outil DLP ; test
+réalisé en séance consistant à transférer un fichier marqué "Confidentiel"
+vers une adresse externe personnelle, sans blocage ni alerte.
+Exigence associée : ISO/IEC 27001:2022, Annexe A.8.12 ; Clause 6.1.3 d)
+qui exige que la Déclaration d'Applicabilité reflète l'état réel de mise
+en œuvre des contrôles retenus.
+Risque : Sortie non maîtrisée d'informations classifiées ; perte de
+fiabilité de la SoA comme référentiel de pilotage, avec effet sur la
+crédibilité de l'ensemble du dispositif déclaratif.
+Classement en Mineure : contrôle isolé, mais l'écart de SoA devra être
+corrigé avant le prochain audit de surveillance.
+
+
+================================================================================
+  SECTION 06 : OBSERVATIONS
+================================================================================
+
+Les observations relèvent des points qui ne constituent pas un écart
+formel par rapport à une exigence, mais qui méritent d'être portés à la
+connaissance du management car ils représentent un facteur de risque
+latent ou une pratique perfectible.
+
+Exemples :
+
+- "Il est observé que la Déclaration d'Applicabilité mentionne le
+  contrôle A.8.23 (Filtrage web) comme applicable et implémenté, mais
+  qu'aucune preuve technique (export de configuration, journal de
+  blocage) n'a été présentée en complément de la politique. Bien que
+  l'entretien avec l'équipe infrastructure confirme la mise en œuvre,
+  il est recommandé de renforcer la documentation des preuves associées
+  à ce contrôle."
+
+- "Le processus de gestion des changements (A.8.32) repose actuellement
+  sur un outil de ticketing sans workflow d'approbation formalisé pour
+  les changements standards à faible risque. Bien qu'aucune anomalie
+  n'ait été constatée sur l'échantillon examiné, l'absence de traçabilité
+  d'approbation constitue un point de vigilance pour la maîtrise
+  opérationnelle à moyen terme."
+
+- "La politique de mots de passe (A.5.17) impose un renouvellement tous
+  les 90 jours assorti de règles de composition. Cette exigence, héritée
+  de pratiques antérieures, est aujourd'hui contredite par les
+  recommandations du NIST (SP 800-63B) et de l'ANSSI, qui privilégient
+  des secrets longs, le contrôle contre les bases de mots de passe
+  compromis et l'abandon de la rotation systématique en l'absence de
+  suspicion de compromission. L'organisation reste conforme à sa propre
+  politique : il ne s'agit pas d'un écart, mais d'un alignement à
+  reconsidérer lors de la prochaine revue documentaire."
+
+- "Le registre des actifs (A.5.9) est tenu à jour de manière fiable pour
+  les serveurs et les postes de travail, mais les actifs de type service
+  cloud (SaaS souscrits par les directions métier) n'y figurent que
+  partiellement : 4 services identifiés en séance n'étaient pas
+  inventoriés. Aucun de ces services ne traite d'information classifiée
+  au-delà du niveau Interne, ce qui limite la portée du point, mais le
+  phénomène mérite un suivi avant qu'il ne prenne de l'ampleur."
+
+- "L'appréciation des risques (Clause 6.1.2) est conduite annuellement
+  selon une méthode documentée et cohérente. Les scénarios retenus
+  restent toutefois centrés sur les menaces techniques ; les scénarios
+  liés à la chaîne d'approvisionnement logicielle et à la compromission
+  d'un prestataire d'infogérance ne sont pas représentés, alors que le
+  panorama de la menace publié par l'ANSSI les identifie comme des
+  vecteurs en forte progression."
+
+- "Les exercices de continuité (A.5.29, A.5.30) sont réalisés une fois
+  par an sous forme d'exercice sur table. Aucun test de bascule réelle
+  n'a été conduit sur les deux derniers exercices. La documentation du
+  plan est à jour et les rôles sont attribués, mais la capacité effective
+  de reprise dans les délais annoncés (RTO de 4 heures) n'a pas été
+  démontrée par la preuve."
+
+
+================================================================================
+  SECTION 07 : OPPORTUNITÉS D'AMÉLIORATION
+================================================================================
+
+Exemples d'opportunités d'amélioration rédigées à l'issue d'un audit :
+
+- "Envisager l'automatisation de la revue des droits d'accès privilégiés
+  (A.5.18) via une intégration entre l'outil IAM et l'outil de gestion
+  des tickets, afin de réduire le risque de dérive constaté sur le cycle
+  actuel et de fournir une preuve d'audit horodatée systématique."
+
+- "La maturité du processus de gestion des vulnérabilités (A.8.8)
+  gagnerait à intégrer un indicateur de délai moyen de remédiation par
+  criticité (MTTR) suivi mensuellement en comité de sécurité, en
+  complément du nombre brut de vulnérabilités ouvertes."
+
+- "Il est suggéré d'étendre la couverture du programme d'audit interne
+  (Clause 9.2) afin de garantir qu'aucun domaine de l'Annexe A ne reste
+  sans audit pendant plus de 18 mois consécutifs, en particulier les
+  contrôles technologiques (A.8) qui évoluent rapidement."
+
+- "Généraliser l'authentification multifacteur (A.8.5) à l'ensemble des
+  services exposés sur Internet, en séquençant le déploiement par
+  criticité : comptes à privilèges d'abord, puis population générale.
+  Un déploiement par vagues avec période de tolérance permet de traiter
+  la conduite du changement sans dégrader la disponibilité du service."
+
+- "Substituer aux copies de production utilisées en recette un jeu de
+  données anonymisé, généré par un script de transformation rejouable
+  (A.8.31, A.8.33). Outre la réduction du risque, cette approche rend les
+  jeux de test reproductibles et indépendants du calendrier de production,
+  ce qui bénéficie directement aux équipes de développement."
+
+- "Introduire dans la revue de direction (Clause 9.3) une trame d'ordre
+  du jour reprenant explicitement chacun des éléments d'entrée listés par
+  la norme, avec mention obligatoire au compte rendu même lorsque le
+  point est sans objet sur la période. Le coût est marginal et la preuve
+  de conformité devient systématique."
+
+- "Compléter l'appréciation des risques (Clause 6.1.2) par des scénarios
+  de compromission de la chaîne d'approvisionnement et d'un prestataire
+  d'infogérance, en s'appuyant sur le panorama de la menace de l'ANSSI
+  comme source d'entrée externe. Cela renforcerait la démonstration du
+  caractère 'tenu à jour' de l'appréciation attendu par la norme."
+
+- "Faire évoluer la politique de mots de passe (A.5.17) vers une approche
+  fondée sur la longueur et la vérification contre les corpus de secrets
+  compromis, en remplacement de la rotation calendaire, conformément aux
+  recommandations actuelles du NIST (SP 800-63B) et de l'ANSSI. Cette
+  évolution réduit typiquement le contournement par les utilisateurs
+  (variantes incrémentales) tout en augmentant l'entropie réelle."
+
+- "Planifier au moins un test de bascule réelle par cycle de
+  certification sur le périmètre le plus critique (A.5.30), afin de
+  disposer d'une preuve mesurée du RTO annoncé plutôt que d'une capacité
+  théorique documentée."
+
+- "Étendre l'inventaire des actifs (A.5.9) aux services SaaS souscrits
+  par les directions métier, par exemple via une revue trimestrielle des
+  dépenses récurrentes rapprochée du registre, afin de limiter la
+  constitution progressive d'un parc applicatif non gouverné."
+
+
+================================================================================
+  SECTION 08 : CONCLUSION
+================================================================================
+
+Modèle de conclusion d'audit (à adapter selon le contexte réel) :
+
+"L'audit réalisé sur le périmètre défini a permis de vérifier la
+conformité du système de management de la sécurité de l'information aux
+exigences des clauses 4 à 10 de la norme ISO/IEC 27001:2022 et aux 93
+contrôles de l'Annexe A applicables selon la Déclaration d'Applicabilité
+en vigueur. L'audit a donné lieu à l'identification de [N] non-conformité(s)
+majeure(s), [N] non-conformité(s) mineure(s), [N] observation(s) et [N]
+opportunité(s) d'amélioration. Sous réserve de la mise en œuvre d'actions
+correctives efficaces sur les non-conformités relevées, dont la
+vérification interviendra selon le processus décrit à la Clause 10.2,
+l'équipe d'audit [recommande / ne recommande pas] le maintien de la
+certification du SMSI dans son périmètre actuel."

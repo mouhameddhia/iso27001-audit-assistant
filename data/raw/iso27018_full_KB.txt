@@ -1,0 +1,238 @@
+================================================================================
+DOCUMENT: ISO/IEC 27018:2019 - Code de bonnes pratiques pour la protection
+des données à caractère personnel (DCP) dans les services cloud publics
+agissant en tant que sous-traitants de DCP
+================================================================================
+ID:             doc-iso27018-full
+Category:       iso27018 / ISO 27018
+Language:       fr
+================================================================================
+
+
+================================================================================
+  SECTION 01 : INFORMATIONS GÉNÉRALES
+================================================================================
+
+ISO/IEC 27018:2019 est une extension d'ISO/IEC 27002 spécifiquement
+dédiée à la protection des données à caractère personnel (DCP) traitées
+par un fournisseur de service cloud public agissant en tant que
+sous-traitant (PII Processor) pour le compte de ses clients
+(responsables de traitement). Elle est étroitement liée à ISO/IEC 27017
+(sécurité cloud générale) et à ISO/IEC 27701 (management de la vie
+privée), et est fréquemment auditée conjointement avec ces deux normes
+dans le cadre d'une certification combinée destinée à rassurer des
+clients B2B soumis eux-mêmes au RGPD.
+
+Contrairement à ISO/IEC 27701 (qui couvre à la fois les rôles de
+Controller et de Processor, dans tout contexte, cloud ou non), ISO/IEC
+27018 se concentre exclusivement sur le rôle de PII Processor dans un
+contexte de cloud public. C'est une distinction fréquemment source de
+confusion qu'il convient de clarifier dès la phase de cadrage de l'audit.
+
+Principes directeurs de la norme, alignés sur les principes
+internationalement reconnus de protection de la vie privée (repris de
+ISO/IEC 29100) :
+  - Consentement et choix : le CSP ne doit utiliser les DCP du client que
+    pour les finalités instruites par ce dernier.
+  - Limitation de la finalité : interdiction d'utiliser les DCP à des
+    fins publicitaires ou marketing sans instruction explicite du client.
+  - Minimisation de la collecte : le CSP ne doit pas exiger plus de DCP
+    que nécessaire à la fourniture du service.
+  - Transparence : information claire sur l'usage sous-traité des DCP,
+    y compris la liste des sous-traitants ultérieurs.
+  - Responsabilité (accountability) : mécanismes de démonstration de
+    conformité (audits, certifications, notifications).
+  - Sécurité de l'information : application des contrôles techniques et
+    organisationnels appropriés (cryptographie, contrôle d'accès,
+    journalisation) proportionnés au risque.
+
+
+================================================================================
+  SECTION 02 : PORTÉE
+================================================================================
+
+ISO/IEC 27018 s'applique spécifiquement aux fournisseurs de services
+cloud publics traitant des données à caractère personnel pour le compte
+de leurs clients, dans le rôle de PII Processor. Elle ne s'applique pas
+directement aux organisations agissant uniquement comme PII Controller
+(pour cela, se référer à ISO/IEC 27701 Annexe A), ni aux environnements
+de cloud privé.
+
+Le périmètre d'un audit 27018 doit couvrir l'ensemble de la chaîne de
+sous-traitance : le CSP principal, mais également ses éventuels
+sous-traitants ultérieurs (fournisseurs d'hébergement, prestataires de
+support technique ayant accès aux données), dont la liste et les
+conditions contractuelles (obligations équivalentes en cascade) doivent
+être vérifiables.
+
+
+================================================================================
+  SECTION 03 : ÉQUIPE D'AUDIT
+================================================================================
+
+L'audit d'un CSP au regard d'ISO/IEC 27018 mobilise des compétences
+combinant sécurité cloud (comme pour 27017) et protection des données
+personnelles (comme pour 27701 Annexe B), avec un focus particulier sur :
+
+  - La capacité à tracer et vérifier la chaîne de sous-traitance
+    ultérieure (fourth parties) et les garanties contractuelles associées.
+  - La compréhension des mécanismes de suppression et de portabilité des
+    données en fin de contrat.
+  - La connaissance des exigences de notification en cas de demande
+    d'accès par une autorité publique (une problématique spécifique aux
+    CSP opérant dans plusieurs juridictions).
+
+Composition typique : auditeur principal SMSI, spécialiste protection de
+la vie privée (cf. équipe 27701), et spécialiste infrastructure cloud
+(cf. équipe 27017) - un audit combiné 27001/27017/27018/27701 mobilise
+généralement les trois profils simultanément sur les mêmes sessions
+d'entretien pour limiter la sollicitation des équipes opérationnelles du
+CSP audité.
+
+
+================================================================================
+  SECTION 04 : CONSTATS
+================================================================================
+
+- "Référence 27018 §A.10.1 (Notification en cas de demande d'accès par
+  une autorité publique) : la politique de gestion des demandes légales
+  du CSP prévoit une notification au client avant toute divulgation de
+  données, sauf interdiction légale expresse. L'examen du registre des
+  demandes reçues sur les 12 derniers mois montre 2 cas où la
+  notification client n'a pas été tracée, sans qu'une interdiction légale
+  documentée ne soit associée à ces cas."
+
+- "Référence 27018 §A.9.1 (Interdiction d'usage à des fins publicitaires)
+  : les conditions générales du service confirment l'absence d'usage des
+  DCP client à des fins marketing. Cependant, la configuration technique
+  de l'outil d'analytics interne utilisé par le CSP pour l'amélioration
+  produit n'exclut pas explicitement les jeux de données clients du
+  périmètre analysé, ce qui constitue une zone d'ambiguïté opérationnelle
+  par rapport à l'engagement contractuel."
+
+
+================================================================================
+  SECTION 05 : NON-CONFORMITÉS
+================================================================================
+
+NC-2026-051 (Mineure)
+Référence : ISO/IEC 27018 §A.10.1
+Énoncé : Sur 2 demandes d'accès reçues d'une autorité publique au cours
+des 12 derniers mois, aucune trace de notification préalable au client
+concerné n'a été retrouvée, sans justification documentée d'une
+interdiction légale applicable, en écart avec la procédure interne de
+gestion des demandes légales.
+Preuve : Registre des demandes légales, absence de trace de notification
+client dans les 2 dossiers concernés.
+Risque : Manquement à l'obligation contractuelle de transparence envers
+le client responsable de traitement ; atteinte potentielle à la confiance
+contractuelle.
+
+NC-2026-052 (Mineure)
+Référence : ISO/IEC 27018 §A.9.1
+Énoncé : Le périmètre de collecte de l'outil d'analytics interne utilisé
+pour l'amélioration produit n'exclut pas explicitement les données
+clients traitées en tant que sous-traitant, créant une ambiguïté par
+rapport à l'engagement contractuel de non-usage des DCP à des fins autres
+que la fourniture du service.
+Preuve : Configuration de l'outil d'analytics, entretien avec l'équipe
+produit, absence de règle d'exclusion technique documentée.
+Risque : Usage non intentionnel mais non maîtrisé de DCP clients à des
+fins secondaires, en écart avec le principe de limitation de la finalité.
+
+NC-2026-053 (Majeure)
+Référence : ISO/IEC 27018 §A.11.13 (suppression en fin de contrat) et
+ISO/IEC 27001 A.5.34
+Énoncé : Les données à caractère personnel de deux clients dont le contrat
+est résilié depuis plus de 12 mois sont toujours présentes en base active,
+alors que les conditions contractuelles prévoient une suppression
+complète dans un délai de 90 jours après la fin de la prestation, période
+de réversibilité incluse.
+Preuve : Requête exécutée en séance sur la base de production retournant
+les jeux de données des deux clients concernés ; contrats mentionnant le
+délai de 90 jours ; registre des résiliations ; absence de bordereau de
+suppression pour ces deux dossiers.
+Exigence associée : ISO/IEC 27018 §A.11.13 ; article 5.1.e du RGPD
+(limitation de la conservation) et article 28.3.g qui impose au
+sous-traitant de supprimer ou renvoyer les données au terme de la
+prestation. La CNIL rappelle que la fin de la relation contractuelle
+constitue le point de départ de l'obligation d'effacement.
+Risque : Conservation de données à caractère personnel sans base légale
+au-delà de la durée contractuelle ; exposition en cas de violation de
+données portant sur des clients qui ne sont plus sous contrat ; grief
+direct en cas de contrôle de l'autorité de protection des données.
+Classement en Majeure : deux occurrences révélant un défaut de processus
+et non un incident isolé, absence de mécanisme de purge automatisé, et
+sensibilité réglementaire directe.
+
+C-2026-201 (Conformité)
+Référence : ISO/IEC 27018 §A.10.1 - Demandes d'accès des autorités
+publiques
+Énoncé : Le dispositif de traitement des demandes d'accès émanant
+d'autorités publiques est formalisé et appliqué. Les 4 demandes reçues
+sur la période ont toutes été enregistrées, qualifiées juridiquement, et
+ont donné lieu à une notification préalable au client responsable de
+traitement, à l'exception d'une demande assortie d'une interdiction
+légale de divulgation dûment documentée au dossier.
+Preuve : Registre des demandes légales ; procédure de traitement des
+réquisitions validée par la direction juridique ; pièces justificatives
+des 4 dossiers, dont la référence de l'interdiction légale pour le cas
+non notifié.
+Exigence associée : ISO/IEC 27018 §A.10.1.
+Appréciation : Conforme.
+
+
+================================================================================
+  SECTION 06 : OBSERVATIONS
+================================================================================
+
+- "Il est observé que la liste des sous-traitants ultérieurs (fourth
+  parties) communiquée aux clients est mise à jour manuellement et
+  publiée trimestriellement, ce qui peut entraîner un décalage temporaire
+  entre l'ajout effectif d'un sous-traitant et son information aux
+  clients, sans toutefois constituer un écart formel au regard du délai
+  contractuel actuel (30 jours)."
+
+- "Le processus de suppression des données en fin de contrat est
+  documenté et testé, mais ne produit pas systématiquement un certificat
+  de suppression daté et signé remis au client, ce qui pourrait limiter
+  la capacité du client à démontrer sa propre conformité en cas de
+  contrôle."
+
+
+================================================================================
+  SECTION 07 : OPPORTUNITÉS D'AMÉLIORATION
+================================================================================
+
+- "Formaliser explicitement, au niveau technique et non uniquement
+  contractuel, l'exclusion des données clients traitées en tant que
+  sous-traitant du périmètre de l'outil d'analytics interne
+  d'amélioration produit."
+
+- "Automatiser la production d'un certificat de suppression de données
+  daté et signé à l'issue de chaque résiliation de contrat, transmis
+  systématiquement au client, afin de renforcer la démonstrabilité de la
+  conformité (accountability) pour les deux parties."
+
+- "Réduire le délai de mise à jour de la liste des sous-traitants
+  ultérieurs communiquée aux clients, en envisageant un mécanisme de
+  notification automatisée dès l'ajout d'un nouveau sous-traitant plutôt
+  qu'une publication trimestrielle groupée."
+
+
+================================================================================
+  SECTION 08 : CONCLUSION
+================================================================================
+
+Modèle de conclusion pour un audit CSP au regard d'ISO/IEC 27018 :
+
+"L'évaluation des pratiques du fournisseur en tant que sous-traitant de
+données à caractère personnel dans un environnement de cloud public, au
+regard des principes et contrôles d'ISO/IEC 27018:2019, montre un niveau
+de conformité [globalement satisfaisant / à renforcer sur certains
+points]. Les écarts identifiés concernent principalement [la traçabilité
+des demandes d'accès par des autorités / la démonstrabilité de la
+suppression des données / la gestion de la chaîne de sous-traitance] et
+font l'objet d'actions correctives dont le suivi sera assuré dans le
+cadre du cycle de certification combiné avec ISO/IEC 27001 et, le cas
+échéant, ISO/IEC 27701."

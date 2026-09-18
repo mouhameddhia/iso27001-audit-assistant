@@ -1,0 +1,98 @@
+{
+  "description": "Hallucination-resistance / grounding evaluation for Stage 3 generation. Realistic auditor observations, distinct from evaluation/kb_retrieval_benchmark.json, run through the real retrieval pipeline (no hand-picked evidence). `expect_reference` is the one thing scored automatically: true means the system should find and cite a supported ISO reference; false means it should abstain (empty iso_reference) rather than invent one. Categories follow the Stage 3 brief (A: strong evidence, B: insufficient, C: misleading, D: no useful retrieval, E: multiple/ambiguous relevant controls). Evidence was inspected against the real retrieval pipeline before writing `expect_reference` (see the reranker scores noted in `note`) -- these are not guesses. Category F (added 2026-09-17, development-phase audit) tests a distinct failure mode found via live testing: a compliant observation must not be turned into a fabricated non-conformity, checked via the optional `expect_non_conformite` field.",
+  "cases": [
+    {
+      "id": "A-01",
+      "category": "A",
+      "observation": "La revue périodique des droits d'accès à privilèges n'est pas réalisée comme l'exige la politique interne.",
+      "expect_reference": true,
+      "note": "Reranker top score 5.4 on doc-iso27001-2022-full:s05:c01 (NC-2026-014, A.5.18)."
+    },
+    {
+      "id": "A-02",
+      "category": "A",
+      "observation": "Le pare-feu applicatif accepte encore des connexions TLS 1.0 sur l'API exposée publiquement.",
+      "expect_reference": true,
+      "note": "Reranker top score 6.5 on doc-iso27002-2022-full:s05:c01 (NC-2026-022, A.8.24)."
+    },
+    {
+      "id": "A-03",
+      "category": "A",
+      "observation": "Le fournisseur cloud IaaS n'a pas formalisé de matrice de répartition des responsabilités de sécurité.",
+      "expect_reference": true,
+      "note": "Reranker top score 10.4 on doc-iso27017-full:s04:c00 (CLD.6.3.1)."
+    },
+    {
+      "id": "B-01",
+      "category": "B",
+      "observation": "Les journaux d'événements de sécurité ne sont conservés que pendant 7 jours sur les serveurs de production.",
+      "expect_reference": false,
+      "note": "Best reranker score -5.8; only loose thematic overlap (A.8.8, vulnerability management, not log retention)."
+    },
+    {
+      "id": "B-02",
+      "category": "B",
+      "observation": "L'inventaire des actifs matériels n'a pas été mis à jour depuis six mois.",
+      "expect_reference": false,
+      "note": "Best reranker score -1.5; A.5.9 (asset inventory) is thematically the right control but the KB never discusses hardware inventory upkeep specifically, so the match is weak, not a confident citation."
+    },
+    {
+      "id": "B-03",
+      "category": "B",
+      "observation": "Le processus de gestion des correctifs de sécurité sur les postes de travail n'est pas documenté.",
+      "expect_reference": false,
+      "note": "Best reranker score -3.7; only loose overlap with change management (A.8.32), not patch management."
+    },
+    {
+      "id": "C-01",
+      "category": "C",
+      "observation": "Le service d'assistance informatique met plus de 48 heures à répondre aux tickets de niveau 1.",
+      "expect_reference": false,
+      "note": "Best reranker score -6.4; sounds like an SLA/operational finding, but nothing in the KB covers helpdesk response times."
+    },
+    {
+      "id": "C-02",
+      "category": "C",
+      "observation": "L'application de gestion de la paie affiche parfois des erreurs de calcul sur les primes.",
+      "expect_reference": false,
+      "note": "Best reranker score -5.7; superficially privacy-adjacent (payroll = personal data) but the KB has nothing on calculation errors."
+    },
+    {
+      "id": "D-01",
+      "category": "D",
+      "observation": "Le distributeur de café de l'open space est en panne depuis trois semaines.",
+      "expect_reference": false,
+      "note": "Best reranker score -6.4; entirely outside the ISMS domain."
+    },
+    {
+      "id": "D-02",
+      "category": "D",
+      "observation": "L'équipe marketing souhaite changer la couleur du logo sur le site web public.",
+      "expect_reference": false,
+      "note": "Best reranker score -6.7; entirely outside the ISMS domain."
+    },
+    {
+      "id": "E-01",
+      "category": "E",
+      "observation": "Un ancien prestataire externe dispose encore d'un accès VPN actif six mois après la fin de son contrat.",
+      "expect_reference": false,
+      "note": "Best reranker score -3.65; two loosely relevant but weakly-scored controls (CLD.8.1.5 asset return, A.8.10 deletion) -- a good test of not over-committing to an ambiguous, low-confidence match."
+    },
+    {
+      "id": "F-01",
+      "category": "F",
+      "observation": "La revue périodique des droits d'accès à privilèges est réalisée trimestriellement, conformément à la politique interne.",
+      "expect_reference": true,
+      "expect_non_conformite": false,
+      "note": "Compliant mirror of A-01 (same topic, opposite polarity): reranker top score 3.61 on the same A.5.18 chunk as A-01. Live-reproduced failure before the 2026-09-17 prompt fix: the model turned an equivalent compliant statement into a fabricated non-conformity, once inventing a contradicting fact not present in the observation."
+    },
+    {
+      "id": "F-02",
+      "category": "F",
+      "observation": "Les journaux d'audit des systèmes critiques sont conservés pendant 90 jours, conformément à la politique interne.",
+      "expect_reference": false,
+      "expect_non_conformite": false,
+      "note": "Best reranker score 0.21 -- weak/borderline evidence, no clear applicable control. Live-reproduced failure before the fix: 3/3 trials fabricated a non-conformity with a self-contradictory justification (asserting the opposite of what the observation states)."
+    }
+  ]
+}

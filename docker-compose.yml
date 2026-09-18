@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: iso27001_postgres
+    environment:
+      POSTGRES_USER: audit_app
+      POSTGRES_PASSWORD: dev_local_only_change_me
+      POSTGRES_DB: iso27001_audit
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U audit_app -d iso27001_audit"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - iso27001_network
+
+  # Qdrant Vector Database
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: iso27001_qdrant
+    ports:
+      - "6333:6333"
+    environment:
+      QDRANT_API_KEY: ""
+    volumes:
+      - qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - iso27001_network
+
+  # Ollama (LLM + Embeddings)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: iso27001_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_NUM_PARALLEL=1
+      - OLLAMA_NUM_THREAD=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - iso27001_network
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: iso27001_backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://audit_app:dev_local_only_change_me@postgres:5432/iso27001_audit
+      # Never commit a real secret: set JWT_SECRET_KEY in your local .env (which is gitignored).
+      # Generate one with: python -c "import secrets; print(secrets.token_hex(32))"
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?set JWT_SECRET_KEY in .env}
+      JWT_ALGORITHM: HS256
+      JWT_EXPIRE_MINUTES: 480
+      QDRANT_URL: http://qdrant:6333
+      QDRANT_COLLECTION: iso27001_kb
+      EMBEDDING_BASE_URL: http://ollama:11434
+      GENERATION_BASE_URL: http://ollama:11434
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+    volumes:
+      - ./src:/app/src
+      - ./api:/app/api
+      - ./data:/app/data
+      - ./tests:/app/tests
+    networks:
+      - iso27001_network
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: iso27001_frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - iso27001_network
+    volumes:
+      - ./web/src:/app/src
+      - ./web/public:/app/public
+
+volumes:
+  postgres_data:
+    driver: local
+  qdrant_data:
+    driver: local
+  ollama_data:
+    driver: local
+
+networks:
+  iso27001_network:
+    driver: bridge

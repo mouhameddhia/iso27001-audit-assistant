@@ -1,0 +1,248 @@
+================================================================================
+DOCUMENT: ISO/IEC 27701:2019 - Lignes directrices pour le management de la
+vie privée - Extension d'ISO/IEC 27001 et ISO/IEC 27002 au management de
+la protection de la vie privée (PIMS)
+================================================================================
+ID:             doc-iso27701-full
+Category:       iso27701 / ISO 27701
+Language:       fr
+================================================================================
+
+
+================================================================================
+  SECTION 01 : INFORMATIONS GÉNÉRALES
+================================================================================
+
+ISO/IEC 27701:2019 est une extension d'ISO/IEC 27001 et ISO/IEC 27002
+dédiée au management de la protection de la vie privée (PIMS - Privacy
+Information Management System). Elle ne constitue pas une norme
+autonome : elle s'appuie sur un SMSI ISO/IEC 27001 déjà établi (ou
+implémenté conjointement) et y ajoute des exigences et lignes directrices
+spécifiques à la gestion des données à caractère personnel (DCP / PII).
+
+La norme distingue deux rôles, reflétant la terminologie utilisée par le
+RGPD (responsable de traitement / sous-traitant) :
+  - PII Controller (responsable du traitement) : détermine les finalités
+    et moyens du traitement des données personnelles.
+  - PII Processor (sous-traitant) : traite les données personnelles pour
+    le compte du responsable de traitement.
+
+Structure de la norme :
+  - Clauses 5 à 7 (obligatoires) : exigences PIMS spécifiques
+    complétant les clauses 4-10 d'ISO/IEC 27001 (ex. Clause 5.2.1 -
+    Comprendre les besoins des parties intéressées en matière de
+    protection de la vie privée).
+  - Annexe A : contrôles supplémentaires applicables aux PII Controllers
+    (organisée autour des principes du RGPD : conditions de collecte et
+    de traitement, obligations envers les personnes concernées,
+    protection de la vie privée dès la conception, partage/transfert de
+    données).
+  - Annexe B : contrôles supplémentaires applicables aux PII Processors
+    (conditions contractuelles avec le responsable de traitement,
+    obligations de notification, gestion des sous-traitants ultérieurs).
+  - Annexes C, D, E, F : correspondances (mapping) entre les contrôles
+    ISO/IEC 27701 et respectivement ISO/IEC 27002, ISO/IEC 27018, le
+    RGPD, et ISO/IEC 29151.
+
+Un organisme peut obtenir une certification ISO/IEC 27701 uniquement en
+extension d'une certification ISO/IEC 27001 existante ou concomitante :
+il n'existe pas de certification 27701 autonome. C'est un point
+fréquemment mal compris et donc un point de vigilance en audit.
+
+
+================================================================================
+  SECTION 02 : PORTÉE
+================================================================================
+
+ISO/IEC 27701 s'applique à toute organisation, agissant comme responsable
+de traitement et/ou sous-traitant, qui traite des données à caractère
+personnel dans le cadre de son SMSI et souhaite démontrer sa conformité
+aux principes de protection de la vie privée reconnus internationalement
+(finalité déterminée, minimisation des données, limitation de la
+conservation, transparence, droits des personnes concernées).
+
+Le périmètre PIMS doit être cohérent avec le périmètre SMSI ISO/IEC 27001
+sous-jacent : un désalignement entre les deux périmètres (par exemple un
+système traitant des données personnelles mais exclu du périmètre SMSI)
+constitue une non-conformité fréquente lors des audits combinés
+27001/27701.
+
+Sont typiquement dans le périmètre : les traitements de données RH, les
+traitements de données clients/prospects (CRM, marketing), les
+traitements liés à la fourniture d'un service SaaS traitant des données
+pour le compte de clients (rôle PII Processor).
+
+La norme ne dispense pas d'une analyse juridique de conformité
+réglementaire complète (RGPD, lois locales de protection des données) :
+elle fournit un cadre de management structurant la mise en œuvre
+opérationnelle de ces obligations, mais ne remplace pas l'avis d'un
+Délégué à la Protection des Données (DPO) ou d'un conseil juridique
+spécialisé.
+
+
+================================================================================
+  SECTION 03 : ÉQUIPE D'AUDIT
+================================================================================
+
+L'audit d'un PIMS ISO/IEC 27701 requiert, en complément des compétences
+d'audit ISO/IEC 27001 classiques, une expertise spécifique en protection
+des données personnelles :
+
+  - Connaissance des principes du RGPD (articles 5, 6, 9, 25, 28, 30, 32,
+    33, 35) et de leur correspondance avec les contrôles Annexe A/B de la
+    norme.
+  - Capacité à évaluer un Registre des Activités de Traitement (RAT/ROPA)
+    et une Analyse d'Impact relative à la Protection des Données (AIPD/
+    DPIA).
+  - Compréhension des mécanismes de transfert international de données
+    (clauses contractuelles types, décisions d'adéquation) lorsque le
+    périmètre inclut des transferts hors Union européenne.
+
+Composition typique d'une équipe d'audit combiné 27001/27701 :
+  - Auditeur principal SMSI (compétence 27001/27002).
+  - Spécialiste protection de la vie privée / ancien DPO ou juriste
+    spécialisé en droit des données, en tant qu'auditeur technique
+    dédié aux clauses PIMS et aux Annexes A/B.
+  - Le rôle exact du PII Controller ou PII Processor audité doit être
+    clarifié en amont de l'audit, car il détermine quelle annexe (A ou B,
+    voire les deux si l'organisation cumule les deux rôles) est
+    applicable.
+
+
+================================================================================
+  SECTION 04 : CONSTATS
+================================================================================
+
+- "Référence Annexe A, 7.2.8 (Enregistrement des activités de traitement) :
+  le Registre des Activités de Traitement présenté couvre 34 traitements
+  identifiés. Le rapprochement avec l'inventaire applicatif (A.5.9 du
+  SMSI sous-jacent) fait apparaître un outil d'analytics marketing
+  déployé depuis 4 mois qui n'est pas référencé dans le registre."
+
+- "Référence Annexe B, 8.2.2 (Objectifs liés à la protection de la vie
+  privée dans les contrats) : le contrat client-type utilisé par
+  l'organisation en tant que PII Processor comporte une clause de
+  notification de violation de données, mais ne précise pas de délai de
+  notification, alors que la politique interne de gestion des incidents
+  cible une notification au client dans les 24 heures."
+
+
+================================================================================
+  SECTION 05 : NON-CONFORMITÉS
+================================================================================
+
+NC-2026-031 (Mineure)
+Référence : ISO/IEC 27701 Annexe A §7.2.8 ; RGPD Article 30
+Énoncé : Un traitement de données personnelles réalisé via un outil
+d'analytics marketing en production depuis 4 mois n'est pas référencé
+dans le Registre des Activités de Traitement.
+Preuve : Comparaison du RAT fourni et de l'inventaire applicatif A.5.9,
+confirmation en entretien avec l'équipe marketing.
+Risque : Absence de base légale documentée pour ce traitement ; non-
+conformité potentielle à l'obligation de tenue de registre du RGPD.
+
+NC-2026-032 (Mineure)
+Référence : ISO/IEC 27701 Annexe B §8.2.2
+Énoncé : Le modèle de contrat utilisé pour les clients en tant que PII
+Processor ne définit pas de délai contractuel de notification de
+violation de données, en écart avec la politique interne cible de 24
+heures et avec les bonnes pratiques recommandées par la norme pour les
+accords de sous-traitance.
+Preuve : Examen du modèle de contrat standard, comparaison avec la
+politique de gestion des incidents (réf. POL-SEC-011).
+Risque : Ambiguïté contractuelle en cas d'incident réel, pouvant entraîner
+un manquement à l'obligation de notification sous 72 heures à l'autorité
+de contrôle prévue par l'Article 33 du RGPD si le sous-traitant tarde à
+alerter le responsable de traitement.
+
+NC-2026-033 (Majeure)
+Référence : ISO/IEC 27701 Annexe A §7.2.5 ; RGPD Article 35
+Énoncé : Le traitement de scoring comportemental mis en production au
+cours du dernier exercice, qui procède à une évaluation systématique
+d'aspects personnels sur une large population de clients, n'a fait
+l'objet d'aucune analyse d'impact relative à la protection des données,
+alors que la procédure interne prévoit un examen préalable de la
+nécessité d'une AIPD pour tout nouveau traitement.
+Preuve : Fiche de traitement extraite du registre ; absence de dossier
+AIPD correspondant ; compte rendu du comité de lancement du projet ne
+mentionnant aucun examen préalable ; entretien avec le délégué à la
+protection des données confirmant n'avoir pas été saisi.
+Exigence associée : ISO/IEC 27701 Annexe A §7.2.5 ; article 35 du RGPD,
+qui impose une AIPD lorsque le traitement est susceptible d'engendrer un
+risque élevé, notamment en cas d'évaluation systématique et approfondie
+fondée sur un traitement automatisé. La CNIL publie une liste des types
+de traitements pour lesquels une AIPD est obligatoire, ainsi qu'une
+méthodologie et un outil dédiés.
+Risque : Mise en œuvre d'un traitement à risque élevé sans évaluation
+préalable des mesures de protection ; manquement directement sanctionnable
+par l'autorité de contrôle, indépendamment de la survenue d'un incident.
+Classement en Majeure : absence totale d'un processus exigé, sur un
+traitement entrant dans le champ explicite de l'obligation.
+
+C-2026-301 (Conformité)
+Référence : ISO/IEC 27701 Annexe A §7.3 ; RGPD Articles 12 à 22
+Énoncé : Le dispositif de traitement des demandes d'exercice de droits
+des personnes concernées est opérationnel et respecte les délais. Les 23
+demandes reçues sur les douze derniers mois (accès, effacement,
+opposition) ont toutes été traitées dans le délai d'un mois prévu par le
+RGPD, avec un délai moyen constaté de 11 jours. Les demandes sont tracées
+de la réception à la réponse, et l'identité du demandeur est vérifiée
+selon une procédure documentée.
+Preuve : Registre des demandes d'exercice de droits avec horodatage de
+réception et de réponse ; échantillon de 6 dossiers examinés de bout en
+bout ; procédure de vérification d'identité ; modèles de réponse validés
+par la direction juridique.
+Exigence associée : ISO/IEC 27701 Annexe A §7.3 ; articles 12 à 22 du
+RGPD. Les modalités de vérification d'identité retenues sont cohérentes
+avec les recommandations de la CNIL, qui rappelle que la vérification
+doit être proportionnée et ne pas conduire à une collecte excessive.
+Appréciation : Conforme.
+
+
+================================================================================
+  SECTION 06 : OBSERVATIONS
+================================================================================
+
+- "Il est observé que le processus de revue du Registre des Activités de
+  Traitement n'est pas formellement synchronisé avec le processus de
+  gestion des changements du SMSI (A.8.32) : un nouvel outil traitant des
+  données personnelles peut ainsi être déployé sans déclenchement
+  automatique d'une mise à jour du registre."
+
+- "Le processus actuel d'analyse d'impact (AIPD/DPIA) repose sur un
+  modèle Excel géré manuellement par le DPO ; un outillage dédié
+  permettrait une meilleure traçabilité et un meilleur suivi des actions
+  de mitigation identifiées."
+
+
+================================================================================
+  SECTION 07 : OPPORTUNITÉS D'AMÉLIORATION
+================================================================================
+
+- "Intégrer un déclencheur automatique de mise à jour du Registre des
+  Activités de Traitement dans le workflow de gestion des changements
+  (A.8.32) dès lors qu'un changement est identifié comme impliquant un
+  nouveau traitement de données personnelles."
+
+- "Réviser le modèle de contrat client (rôle PII Processor) afin d'y
+  intégrer un délai contractuel explicite de notification des violations
+  de données, aligné sur la politique interne et sur les exigences de
+  l'Article 33 du RGPD relayées vers les clients responsables de
+  traitement."
+
+
+================================================================================
+  SECTION 08 : CONCLUSION
+================================================================================
+
+Modèle de conclusion pour un audit combiné 27001/27701 :
+
+"L'extension PIMS du système de management, évaluée au regard des
+exigences des clauses 5 à 7 et des contrôles applicables de l'Annexe [A
+et/ou B] d'ISO/IEC 27701:2019, présente un niveau de mise en œuvre
+[globalement conforme / nécessitant des actions correctives] au périmètre
+audité. Les écarts relevés concernent principalement [le registre des
+traitements / les clauses contractuelles / les analyses d'impact] et font
+l'objet d'actions correctives dont l'efficacité sera vérifiée lors du
+prochain cycle d'audit, conformément à la Clause 10.2 du SMSI sous-
+jacent."
